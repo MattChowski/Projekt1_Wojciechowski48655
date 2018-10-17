@@ -40,7 +40,7 @@ class Program {
 				"I: Obliczenie sredniej potegowej",
 				"Z: Zakonczenie programu (wyjscie)"
 			};
-		static int PredkoscPokazywaniaTekstu = 5;
+		const int PredkoscPokazywaniaTekstu = 5;
 		static ConsoleKeyInfo WybranyKlawisz;
 
 		/*--------------------------------------------*/
