@@ -2,7 +2,7 @@
 
  * DO ZROBIENIA:
 
-<del>0. Funkcja A</del>
+<del>0. Funkcja A</del> Zrobione
 1. Funkcja B
 2. Funkcja C
 3. Funkcja D
