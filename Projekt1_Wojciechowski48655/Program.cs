@@ -279,6 +279,31 @@ class Program {
 		}
 
 		class FunkcjaC : MainGUI {
+			//deklaracja zmiennych klasowych
+			private int iloscCiagu;
+			private float suma = 1.0f;
+			private float tymczasowaZmienna;
+
+			/* deklarowanie ciagu liczbowego */
+			public void PodajDlugoscCiagu() {
+				string[] CiagLiczbString;
+				int[] CiagLiczbInt;
+
+				Console.Write("\n\n\tPodaj liczby oddzielając je przecinkiem (i.e.: 1, 2, 3): ");
+
+				CiagLiczbString = Console.ReadLine().Split(',');
+				CiagLiczbInt = Array.ConvertAll(CiagLiczbString, int.Parse);
+
+				foreach (int x in CiagLiczbInt) {
+					tymczasowaZmienna += x;
+				}
+
+				suma = tymczasowaZmienna / CiagLiczbInt.Length;
+				Console.WriteLine($"Srednia to: {suma}");
+
+				Console.Write("\n\nNacisnij dowolny klawisz aby wrocic do menu...");
+				Console.ReadKey();
+			}
 
 		}
 
@@ -316,6 +341,7 @@ class Program {
 			MainGUI mainGUI = new MainGUI();
 			FunkcjaA funkcjaA = new FunkcjaA();
 			FunkcjaB funkcjaB = new FunkcjaB();
+			FunkcjaC funkcjaC = new FunkcjaC();
 
 			//glowna petla powtarzajaca program
 			do {
@@ -350,6 +376,10 @@ class Program {
 
 					case ConsoleKey.C:
 						Console.Clear();
+						mainGUI.PokazNazweProgramu(tytulProgramu);
+						mainGUI.PokazNazweFunkcji(ListaWyborow[2]);
+
+						funkcjaC.PodajDlugoscCiagu();
 						Console.WriteLine($"Wybrales funkcje: {ListaWyborow[2]}");
 						break;
 
