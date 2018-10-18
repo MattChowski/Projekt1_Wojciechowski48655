@@ -1,5 +1,4 @@
 # Projekt1_Wojciechowski48655
----
 ##### Program konsolowy obsługujący różne funkcje matematyczne
 
 ### *Obecnie obsługiwane funkcje:*
