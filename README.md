@@ -1,4 +1,5 @@
 # Projekt1_Wojciechowski48655
+## Program obsługujący różne funkcje matematyczne
 
  * DO ZROBIENIA:
 
