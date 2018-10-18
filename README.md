@@ -1,6 +1,8 @@
 # Projekt1_Wojciechowski48655
 
  * DO ZROBIENIA:
+
+<del>0. Funkcja A</del>
 1. Funkcja B
 2. Funkcja C
 3. Funkcja D
