@@ -4,7 +4,7 @@
 ### *Obecnie obsługiwane funkcje:*
 
 * [x] A: Obliczenie sumy
-* [ ] B: Obliczenie Iloczynu
+* [x] B: Obliczenie Iloczynu
 * [ ] C: Obliczenie sredniej arytmetycznej
 * [ ] D: Obliczenie sredniej wazonej
 * [ ] E: Obliczenie ceny jednostki paszy
