@@ -1,16 +1,16 @@
 # Projekt1_Wojciechowski48655
 ---
-##### Program obsługujący różne funkcje matematyczne
+##### Program konsolowy obsługujący różne funkcje matematyczne
 
-##### * *Działające obecnie funkcje:*
+### *Obecnie obsługiwane funkcje:*
 
-* [x] Funkcja A
-* [ ] Funkcja B
-* [ ] Funkcja C
-* [ ] Funkcja D
-* [ ] Funkcja E
-* [ ] Funkcja F
-* [ ] Funkcja G
-* [ ] Funkcja H
-* [ ] Funkcja I
-
+* [x] A: Obliczenie sumy
+* [ ] B: Obliczenie Iloczynu
+* [ ] C: Obliczenie sredniej arytmetycznej
+* [ ] D: Obliczenie sredniej wazonej
+* [ ] E: Obliczenie ceny jednostki paszy
+* [ ] F: Obliczenie sredniej harmonicznej
+* [ ] G: Obliczenie sredniej geometrycznej
+* [ ] H: Obliczenie sredniej kwadratowej
+* [ ] I: Obliczenie sredniej potegowej
+* [x] Z: Zakonczenie programu (wyjscie)
