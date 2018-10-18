@@ -1,7 +1,7 @@
 # Projekt1_Wojciechowski48655
 ### Program obsługujący różne funkcje matematyczne
-
-##### * DO ZROBIENIA:
+---
+##### * Pozostało do zrobienia:
 
 * <del>Funkcja A</del> - **Zrobione**
 * Funkcja B
