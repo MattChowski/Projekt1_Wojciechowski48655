@@ -2,13 +2,13 @@
 
  * DO ZROBIENIA:
 
-<del>0. Funkcja A</del> *Zrobione*
-1. Funkcja B
-2. Funkcja C
-3. Funkcja D
-4. Funkcja E
-5. Funkcja F
-6. Funkcja G
-7. Funkcja H
-8. Funkcja I
+* <del>0. Funkcja A</del> *Zrobione*
+* Funkcja B
+* Funkcja C
+* Funkcja D
+* Funkcja E
+* Funkcja F
+* Funkcja G
+* Funkcja H
+* Funkcja I
 
