@@ -1,6 +1,7 @@
 # Projekt1_Wojciechowski48655
-### Program obsługujący różne funkcje matematyczne
 ---
+##### Program obsługujący różne funkcje matematyczne
+
 ##### * *Działające obecnie funkcje:*
 
 * [x] Funkcja A
