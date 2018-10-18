@@ -2,7 +2,7 @@
 
  * DO ZROBIENIA:
 
-* <del>Funkcja A</del> <span style="color:green">**Zrobione**</span>
+* <del>Funkcja A</del>  **Zrobione**
 * Funkcja B
 * Funkcja C
 * Funkcja D
