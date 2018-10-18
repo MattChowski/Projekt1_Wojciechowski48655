@@ -2,7 +2,7 @@
 
  * DO ZROBIENIA:
 
-* <del>Funkcja A</del>  **Zrobione**
+* <del>Funkcja A</del> - **Zrobione**
 * Funkcja B
 * Funkcja C
 * Funkcja D
