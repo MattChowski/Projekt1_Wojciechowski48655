@@ -206,7 +206,76 @@ class Program {
 		}
 
 		class FunkcjaB : MainGUI {
+			//deklaracja zmiennych klasowych
+			private int iloscCiagu;
+			private float suma = 1.0f;
+			private float wartoscWyrazuCiagu;
 
+			/* deklarowanie ciagu liczbowego */
+			public void PodajDlugoscCiagu() {
+				Console.Write("\n\n\tPodaj dlugosc ciagu liczbowego: ");
+
+				//sprawdzanie czy wpisany znak jest poprawny i <= 1
+				do {
+					while (!int.TryParse(Console.ReadLine(), out iloscCiagu)) {
+						Console.ForegroundColor = ConsoleColor.Red;
+						Console.WriteLine("\nERROR: Wystapil niedozwolony znak, sproboj ponownie");
+						Console.ForegroundColor = ConsoleColor.Yellow;
+						Console.Write("Podaj ponownie licznosc ciagu liczbowego: ");
+						Console.ResetColor();
+					}
+
+					if (iloscCiagu <= 1) {
+						Console.ForegroundColor = ConsoleColor.Red;
+						Console.WriteLine("\nERROR: Wartosc N musi byc wieksza od 1");
+						Console.ForegroundColor = ConsoleColor.Yellow;
+						Console.Write("Podaj ponownie licznosc ciagu liczbowego: ");
+						Console.ResetColor();
+					}
+
+				} while (iloscCiagu <= 1);
+
+				Console.WriteLine();
+			}
+
+			/* podawanie wartosci kazdego wyrazu z ciagu liczbowego */
+			public void PodajKazdyWyrazCiagu() {
+
+				for (int x = 1; x <= iloscCiagu; x++) {
+					Console.Write($"\tPodaj wartosc {x}-go wyrazu ciagu liczbowego: ");
+
+					while (!float.TryParse(Console.ReadLine(), out wartoscWyrazuCiagu)) {
+						Console.WriteLine($"ERROR - Blad w zapisie {x}-go wyrazu");
+						Console.Write("Sproboj ponownie: ");
+					}
+
+					//algorytm obliczania sumy
+					suma *= wartoscWyrazuCiagu;
+				}
+
+				Console.WriteLine();
+			}
+
+			/* PRZEDSTAW WYNIK KONCOWY CALEJ FUNKCJI */
+			public void WynikFunkcji() {
+
+				Console.ForegroundColor = ConsoleColor.Cyan;
+				foreach (var x in "WYNIK KONCOWY: ") {
+					Console.Write(x);
+					Thread.Sleep(PredkoscPokazywaniaTekstu);
+				}
+
+				Console.ForegroundColor = ConsoleColor.Yellow;
+				foreach (var x in Convert.ToString(suma)) {
+					Console.Write(x);
+					Thread.Sleep(PredkoscPokazywaniaTekstu);
+				}
+				Console.ResetColor();
+
+				Console.Write("\n\nNacisnij dowolny klawisz aby wrocic do menu...");
+				Console.ReadKey();
+
+			}
 		}
 
 		class FunkcjaC : MainGUI {
@@ -246,6 +315,7 @@ class Program {
 			//deklaracja instancji klas
 			MainGUI mainGUI = new MainGUI();
 			FunkcjaA funkcjaA = new FunkcjaA();
+			FunkcjaB funkcjaB = new FunkcjaB();
 
 			//glowna petla powtarzajaca program
 			do {
@@ -258,10 +328,10 @@ class Program {
 
 				switch (WybranyKlawisz.Key) {
 					case ConsoleKey.A:
-
 						Console.Clear();
 						mainGUI.PokazNazweProgramu(tytulProgramu);
 						mainGUI.PokazNazweFunkcji(ListaWyborow[0]);
+
 						funkcjaA.PodajDlugoscCiagu();
 						funkcjaA.PodajKazdyWyrazCiagu();
 						funkcjaA.WynikFunkcji();
@@ -270,7 +340,12 @@ class Program {
 
 					case ConsoleKey.B:
 						Console.Clear();
-						Console.WriteLine($"Wybrales funkcje: {ListaWyborow[1]}");
+						mainGUI.PokazNazweProgramu(tytulProgramu);
+						mainGUI.PokazNazweFunkcji(ListaWyborow[1]);
+
+						funkcjaB.PodajDlugoscCiagu();
+						funkcjaB.PodajKazdyWyrazCiagu();
+						funkcjaB.WynikFunkcji();
 						break;
 
 					case ConsoleKey.C:
