@@ -42,7 +42,8 @@ class Program {
 			};
 		const int PredkoscPokazywaniaTekstu = 5;
 		static ConsoleKeyInfo WybranyKlawisz;
-
+		enum InputChoices {Suma, Iloczyn, SredniaArytmetyczna, SredniaWazona};
+		
 		/*--------------------------------------------*/
 		/* konstruktor klasy, ustawia rozmiar konsoli */
 		/*--------------------------------------------*/
@@ -134,7 +135,7 @@ class Program {
 		class FunkcjaA : MainGUI {
 			//deklaracja zmiennych klasowych
 			private int iloscCiagu;
-			private float suma = 0.0f;
+			private float suma;
 			private float wartoscWyrazuCiagu;
 
 			/* deklarowanie ciagu liczbowego */
@@ -166,13 +167,20 @@ class Program {
 
 			/* podawanie wartosci kazdego wyrazu z ciagu liczbowego */
 			public void PodajKazdyWyrazCiagu() {
-				
+
+				//resetowanie zmiennych w razie powtorzenia funkcji
+				suma = 0.0f;
+
+				//operacja podawania wyrazow ciagu
 				for (int x = 1; x <= iloscCiagu; x++) {
 					Console.Write($"\tPodaj wartosc {x}-go wyrazu ciagu liczbowego: ");
 
 					while (!float.TryParse(Console.ReadLine(), out wartoscWyrazuCiagu)) {
-						Console.WriteLine($"ERROR - Blad w zapisie {x}-go wyrazu");
+						Console.ForegroundColor = ConsoleColor.Red;
+						Console.WriteLine($"\nERROR - Blad w zapisie {x}-go wyrazu");
+						Console.ForegroundColor = ConsoleColor.Yellow;
 						Console.Write("Sproboj ponownie: ");
+						Console.ResetColor();
 					}
 
 					//algorytm obliczania sumy
@@ -206,9 +214,10 @@ class Program {
 		}
 
 		class FunkcjaB : MainGUI {
+
 			//deklaracja zmiennych klasowych
 			private int iloscCiagu;
-			private float suma = 1.0f;
+			private float suma;
 			private float wartoscWyrazuCiagu;
 
 			/* deklarowanie ciagu liczbowego */
@@ -241,12 +250,19 @@ class Program {
 			/* podawanie wartosci kazdego wyrazu z ciagu liczbowego */
 			public void PodajKazdyWyrazCiagu() {
 
+				//resetowanie zmiennych w razie powtorzenia funkcji
+				suma = 1.0f;
+
+				//operacja podawania wyrazow ciagu
 				for (int x = 1; x <= iloscCiagu; x++) {
 					Console.Write($"\tPodaj wartosc {x}-go wyrazu ciagu liczbowego: ");
 
 					while (!float.TryParse(Console.ReadLine(), out wartoscWyrazuCiagu)) {
-						Console.WriteLine($"ERROR - Blad w zapisie {x}-go wyrazu");
+						Console.ForegroundColor = ConsoleColor.Red;
+						Console.WriteLine($"\nERROR - Blad w zapisie {x}-go wyrazu");
+						Console.ForegroundColor = ConsoleColor.Yellow;
 						Console.Write("Sproboj ponownie: ");
+						Console.ResetColor();
 					}
 
 					//algorytm obliczania sumy
@@ -279,30 +295,70 @@ class Program {
 		}
 
 		class FunkcjaC : MainGUI {
+
 			//deklaracja zmiennych klasowych
-			private int iloscCiagu;
-			private float suma = 1.0f;
-			private float tymczasowaZmienna;
+			float suma;
+			float tymczasowaZmienna;
 
 			/* deklarowanie ciagu liczbowego */
 			public void PodajDlugoscCiagu() {
-				string[] CiagLiczbString;
-				int[] CiagLiczbInt;
 
-				Console.Write("\n\n\tPodaj liczby oddzielając je przecinkiem (i.e.: 1, 2, 3): ");
+				//resetowanie zmiennych w razie powtorzenia funkcji
+				suma = 0.0f;
+				tymczasowaZmienna = 0.0f;
 
-				CiagLiczbString = Console.ReadLine().Split(',');
-				CiagLiczbInt = Array.ConvertAll(CiagLiczbString, int.Parse);
+				//Prosba o wpisanei danych wejsciowych w formie listy oddzielona przecinkiem
+				Console.Write("\n\n\tPodaj liczby oddzielając je przecinkiem (i.e.: 1 , 2, 3): ");
+				string[] CiagLiczbString = CiagLiczbString = Console.ReadLine().Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
+				float[] CiagLiczbFloat = new float[CiagLiczbString.Length];
+				int i = 0;
 
-				foreach (int x in CiagLiczbInt) {
+				// operacja przeksztalcania listy STRING w liste FLOAT, razem ze sprawdzaniem czy nie ma bledow w zapisie listy STRING
+				foreach (string s in CiagLiczbString) {
+					while (!float.TryParse(s, out CiagLiczbFloat[i])) {
+						Console.ForegroundColor = ConsoleColor.Red;
+						Console.WriteLine($"\nERROR: Wystapil niedozwolony znak w {i + 1} liczbie ciagu");
+						Console.ForegroundColor = ConsoleColor.Yellow;
+						Console.Write($"Podaj ponownie {i + 1} cyfre ciagu: ");
+						Console.ResetColor();
+
+						if (float.TryParse(Console.ReadLine(), out CiagLiczbFloat[i])) {
+							break;
+						} else {
+							continue;
+						}
+
+					};
+					i++;
+				}
+
+				foreach (int x in CiagLiczbFloat) {
 					tymczasowaZmienna += x;
 				}
 
-				suma = tymczasowaZmienna / CiagLiczbInt.Length;
-				Console.WriteLine($"Srednia to: {suma}");
+				//algorytm do obliczania sredniej
+				suma = tymczasowaZmienna / CiagLiczbFloat.Length;
+			}
+
+			/* PRZEDSTAW WYNIK KONCOWY CALEJ FUNKCJI */
+			public void WynikFunkcji() {
+
+				Console.ForegroundColor = ConsoleColor.Cyan;
+				foreach (var x in "\nWYNIK KONCOWY: ") {
+					Console.Write(x);
+					Thread.Sleep(PredkoscPokazywaniaTekstu);
+				}
+
+				Console.ForegroundColor = ConsoleColor.Yellow;
+				foreach (var x in Convert.ToString(suma)) {
+					Console.Write(x);
+					Thread.Sleep(PredkoscPokazywaniaTekstu);
+				}
+				Console.ResetColor();
 
 				Console.Write("\n\nNacisnij dowolny klawisz aby wrocic do menu...");
 				Console.ReadKey();
+
 			}
 
 		}
@@ -380,6 +436,7 @@ class Program {
 						mainGUI.PokazNazweFunkcji(ListaWyborow[2]);
 
 						funkcjaC.PodajDlugoscCiagu();
+						funkcjaC.WynikFunkcji();
 						Console.WriteLine($"Wybrales funkcje: {ListaWyborow[2]}");
 						break;
 
