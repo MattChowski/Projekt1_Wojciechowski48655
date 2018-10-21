@@ -366,9 +366,6 @@ class Program {
 		class FunkcjaD : MainGUI {
 
 			//deklaracja zmiennych klasowych
-			float suma;
-			float tymczasowaZmienna;
-
 			string[] CiagLiczbString;
 			float[] CiagLiczbFloat;
 
@@ -407,6 +404,8 @@ class Program {
 			}
 
 			public void PodajDlugoscWagi() {
+
+				//Prosba o wpisanei danych wejsciowych w formie listy oddzielona przecinkiem
 				Console.Write("\n\n\tPodaj wagi oddzielając je przecinkiem (i.e.: 1, 2, 3): ");
 				CiagLiczbStringWagi = Console.ReadLine().Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
 				CiagLiczbFloatWagi = new float[CiagLiczbStringWagi.Length];
@@ -457,6 +456,77 @@ class Program {
 
 		class FunkcjaF : MainGUI {
 
+			string[] CiagLiczbString;
+			float[] CiagLiczbFloat;
+
+			public float[] PodajDlugoscCiagu() {
+
+				//Prosba o wpisanei danych wejsciowych w formie listy oddzielona przecinkiem
+				Console.Write("\n\n\tPodaj liczby oddzielając je przecinkiem (i.e.: 1 , 2, 3): ");
+				CiagLiczbString = Console.ReadLine().Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
+				CiagLiczbFloat = new float[CiagLiczbString.Length];
+				int i = 0;
+
+				// operacja przeksztalcania listy STRING w liste FLOAT, razem ze sprawdzaniem czy nie ma bledow w zapisie listy STRING
+				foreach (string s in CiagLiczbString) {
+					while (!float.TryParse(s, out CiagLiczbFloat[i])) {
+						Console.ForegroundColor = ConsoleColor.Red;
+						Console.WriteLine($"\nERROR: Wystapil niedozwolony znak w {i + 1} liczbie ciagu");
+						Console.ForegroundColor = ConsoleColor.Yellow;
+						Console.Write($"Podaj ponownie {i + 1} cyfre ciagu: ");
+						Console.ResetColor();
+
+						if (float.TryParse(Console.ReadLine(), out CiagLiczbFloat[i])) {
+							break;
+						}
+						else {
+							continue;
+						}
+
+					};
+					i++;
+				}
+
+				return CiagLiczbFloat;
+			}
+
+
+			/* funkcja do obliczania sredniej harmonicznej z parametrem array ktorym jest lista wynikajaca z "PodajDlugoscCiagu()" */
+			public double SredniaHarmoniczna(float[] array) {
+
+				double wynik = 0;
+				int i;
+
+				for (i = 0; i < array.Length; i++) {
+					wynik += (1.0f) / array[i];
+				}
+
+				wynik = array.Length * Math.Pow(wynik, -1.0);
+				return wynik;
+			}
+
+			/* PRZEDSTAW WYNIK KONCOWY CALEJ FUNKCJI */
+			public void WynikFunkcji() {
+
+				double result = SredniaHarmoniczna(PodajDlugoscCiagu());
+
+				Console.ForegroundColor = ConsoleColor.Cyan;
+				foreach (var x in "\nWYNIK KONCOWY: ") {
+					Console.Write(x);
+					Thread.Sleep(PredkoscPokazywaniaTekstu);
+				}
+
+				Console.ForegroundColor = ConsoleColor.Yellow;
+				foreach (var x in Convert.ToString(result)) {
+					Console.Write(x);
+					Thread.Sleep(PredkoscPokazywaniaTekstu);
+				}
+				Console.ResetColor();
+
+				Console.Write("\n\nNacisnij dowolny klawisz aby wrocic do menu...");
+				Console.ReadKey();
+
+			}
 		}
 
 		class FunkcjaG : MainGUI {
@@ -483,6 +553,7 @@ class Program {
 			FunkcjaB funkcjaB = new FunkcjaB();
 			FunkcjaC funkcjaC = new FunkcjaC();
 			FunkcjaD funkcjaD = new FunkcjaD();
+			FunkcjaF funkcjaF = new FunkcjaF();
 
 			//glowna petla powtarzajaca program
 			do {
@@ -543,7 +614,12 @@ class Program {
 
 					case ConsoleKey.F:
 						Console.Clear();
-						Console.WriteLine($"Wybrales funkcje: {ListaWyborow[5]}");
+						mainGUI.PokazNazweProgramu(tytulProgramu);
+						mainGUI.PokazNazweFunkcji(ListaWyborow[5]);
+
+
+						funkcjaF.WynikFunkcji();
+
 						break;
 
 					case ConsoleKey.G:
