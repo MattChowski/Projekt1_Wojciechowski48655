@@ -309,7 +309,7 @@ class Program {
 
 				//Prosba o wpisanei danych wejsciowych w formie listy oddzielona przecinkiem
 				Console.Write("\n\n\tPodaj liczby oddzielając je przecinkiem (i.e.: 1 , 2, 3): ");
-				string[] CiagLiczbString = CiagLiczbString = Console.ReadLine().Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
+				string[] CiagLiczbString = Console.ReadLine().Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
 				float[] CiagLiczbFloat = new float[CiagLiczbString.Length];
 				int i = 0;
 
@@ -365,6 +365,90 @@ class Program {
 
 		class FunkcjaD : MainGUI {
 
+			//deklaracja zmiennych klasowych
+			float suma;
+			float tymczasowaZmienna;
+
+			string[] CiagLiczbString;
+			float[] CiagLiczbFloat;
+
+			string[] CiagLiczbStringWagi;
+			float[] CiagLiczbFloatWagi;
+			
+
+			/* deklarowanie ciagu liczbowego */
+			public void PodajDlugoscCiagu() {
+
+				//Prosba o wpisanei danych wejsciowych w formie listy oddzielona przecinkiem
+				Console.Write("\n\n\tPodaj liczby oddzielając je przecinkiem (i.e.: 1 , 2, 3): ");
+				CiagLiczbString = Console.ReadLine().Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
+				CiagLiczbFloat = new float[CiagLiczbString.Length];
+				int i = 0;
+
+				// operacja przeksztalcania listy STRING w liste FLOAT, razem ze sprawdzaniem czy nie ma bledow w zapisie listy STRING
+				foreach (string s in CiagLiczbString) {
+					while (!float.TryParse(s, out CiagLiczbFloat[i])) {
+						Console.ForegroundColor = ConsoleColor.Red;
+						Console.WriteLine($"\nERROR: Wystapil niedozwolony znak w {i + 1} liczbie ciagu");
+						Console.ForegroundColor = ConsoleColor.Yellow;
+						Console.Write($"Podaj ponownie {i + 1} cyfre ciagu: ");
+						Console.ResetColor();
+
+						if (float.TryParse(Console.ReadLine(), out CiagLiczbFloat[i])) {
+							break;
+						}
+						else {
+							continue;
+						}
+
+					};
+					i++;
+				}
+			}
+
+			public void PodajDlugoscWagi() {
+				Console.Write("\n\n\tPodaj wagi oddzielając je przecinkiem (i.e.: 1, 2, 3): ");
+				CiagLiczbStringWagi = Console.ReadLine().Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
+				CiagLiczbFloatWagi = new float[CiagLiczbStringWagi.Length];
+
+				int i = 0;
+
+				foreach (string s in CiagLiczbStringWagi) {
+					while (!float.TryParse(s, out CiagLiczbFloatWagi[i])) {
+						Console.ForegroundColor = ConsoleColor.Red;
+						Console.WriteLine($"\nERROR: Wystapil niedozwolony znak w {i + 1} liczbie ciagu");
+						Console.ForegroundColor = ConsoleColor.Yellow;
+						Console.Write($"Podaj ponownie {i + 1} cyfre ciagu: ");
+						Console.ResetColor();
+
+						if (float.TryParse(Console.ReadLine(), out CiagLiczbFloatWagi[i])) {
+							break;
+						}
+						else {
+							continue;
+						}
+
+					};
+					i++;
+				}
+
+			}
+
+			public void WynikFunkcji() {
+
+				float[] WynikWag = new float[CiagLiczbFloat.Length];
+
+				for (int x = 0; x < CiagLiczbFloat.Length; x++) {
+					WynikWag[x] = (CiagLiczbFloat[x] * CiagLiczbFloatWagi[x]);
+				}
+
+				float suma = WynikWag.Sum() / CiagLiczbFloatWagi.Sum();
+
+				Console.WriteLine(string.Join(", ", WynikWag));
+				Console.WriteLine($"Wynik to: {suma}");
+				Console.ReadKey();
+
+			}
 		}
 
 		class FunkcjaE : MainGUI {
@@ -398,6 +482,7 @@ class Program {
 			FunkcjaA funkcjaA = new FunkcjaA();
 			FunkcjaB funkcjaB = new FunkcjaB();
 			FunkcjaC funkcjaC = new FunkcjaC();
+			FunkcjaD funkcjaD = new FunkcjaD();
 
 			//glowna petla powtarzajaca program
 			do {
@@ -442,6 +527,12 @@ class Program {
 
 					case ConsoleKey.D:
 						Console.Clear();
+						mainGUI.PokazNazweProgramu(tytulProgramu);
+						mainGUI.PokazNazweFunkcji(ListaWyborow[3]);
+
+						funkcjaD.PodajDlugoscCiagu();
+						funkcjaD.PodajDlugoscWagi();
+						funkcjaD.WynikFunkcji();
 						Console.WriteLine($"Wybrales funkcje: {ListaWyborow[3]}");
 						break;
 

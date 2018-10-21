@@ -6,7 +6,7 @@
 * [x] A: Obliczenie sumy
 * [x] B: Obliczenie Iloczynu
 * [x] C: Obliczenie sredniej arytmetycznej
-* [ ] D: Obliczenie sredniej wazonej
+* [x] D: Obliczenie sredniej wazonej
 * [ ] E: Obliczenie ceny jednostki paszy
 * [ ] F: Obliczenie sredniej harmonicznej
 * [ ] G: Obliczenie sredniej geometrycznej
