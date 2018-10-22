@@ -9,7 +9,7 @@
 * [x] D: Obliczenie sredniej wazonej
 * [ ] E: Obliczenie ceny jednostki paszy
 * [x] F: Obliczenie sredniej harmonicznej
-* [ ] G: Obliczenie sredniej geometrycznej
-* [ ] H: Obliczenie sredniej kwadratowej
+* [x] G: Obliczenie sredniej geometrycznej
+* [x] H: Obliczenie sredniej kwadratowej
 * [ ] I: Obliczenie sredniej potegowej
 * [x] Z: Zakonczenie programu (wyjscie)
