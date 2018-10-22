@@ -23,8 +23,8 @@ namespace Projekt1_Wojciechowski48655
         /*-------------------------------------------------------------------*/
         /* Deklaracja zmiennych globalnych, mozna pozmieniac wedlug upodoban */
         /*-------------------------------------------------------------------*/
-        private static readonly string tytulProgramu = "ProjektNr1 - funkcje matematyczne";
-        private static readonly string[] ListaWyborow = {
+        static readonly string tytulProgramu = "ProjektNr1 - funkcje matematyczne";
+        static readonly string[] ListaWyborow = {
                 "A: Obliczenie sumy",
                 "B: Obliczenie Iloczynu",
                 "C: Obliczenie sredniej arytmetycznej",
@@ -38,7 +38,6 @@ namespace Projekt1_Wojciechowski48655
             };
         const int PredkoscPokazywaniaTekstu = 5;
         static ConsoleKeyInfo WybranyKlawisz;
-        enum InputChoices { Suma, Iloczyn, SredniaArytmetyczna, SredniaWazona };
 
         /*--------------------------------------------*/
         /* konstruktor klasy, ustawia rozmiar konsoli */
@@ -138,9 +137,107 @@ namespace Projekt1_Wojciechowski48655
             }
         }
 
+        public abstract class WkladListowy
+        {
+
+            /// <summary>
+            /// Funkcja ktora nam zwraca dlugosc ciagu w formie Array, sprawdza rowniez czy dane sa poprawnie wpisane.
+            /// </summary>
+            /// <returns>CiagLiczbFloat</returns>
+            public float[] PodajDlugoscCiagu()
+            {
+
+                //Prosba o wpisanei danych wejsciowych w formie listy oddzielona przecinkiem
+                Console.Write("\n\n\tPodaj liczby oddzielając je przecinkiem ");
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.Write("(i.e.: 1, 2, 3)");
+                Console.ResetColor();
+                Console.Write(": ");
+
+                string[] CiagLiczbString = Console.ReadLine().Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
+                float[] CiagLiczbFloat = new float[CiagLiczbString.Length];
+                int i = 0;
+
+                // operacja przeksztalcania listy STRING w liste FLOAT, razem ze sprawdzaniem czy nie ma bledow w zapisie listy STRING
+                foreach (string s in CiagLiczbString)
+                {
+                    while (!float.TryParse(s, out CiagLiczbFloat[i]))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"\nERROR: Wystapil niedozwolony znak w {i + 1} liczbie ciagu");
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.Write($"Podaj ponownie {i + 1} cyfre ciagu: ");
+                        Console.ResetColor();
+
+                        if (float.TryParse(Console.ReadLine(), out CiagLiczbFloat[i]))
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            continue;
+                        }
+
+                    }
+                    i++;
+                }
+                return CiagLiczbFloat;
+            }
+
+            /// <summary>
+            /// Funkcja ktora nam zwraca dlugosc ciagu WAGI w formie Array, sprawdza rowniez czy dane sa poprawnie wpisane.
+            /// </summary>
+            /// <returns>CiagLiczbFloat</returns>
+            public float[] PodajDlugoscWagi()
+            {
+
+                //Prosba o wpisanei danych wejsciowych w formie listy oddzielona przecinkiem
+                Console.Write("\n\tPodaj wagi oddzielając je przecinkiem ");
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.Write("(i.e.: 1, 2, 3)");
+                Console.ResetColor();
+                Console.Write(": ");
+
+                string[] CiagLiczbStringWagi = Console.ReadLine().Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
+                float[] CiagLiczbFloatWagi = new float[CiagLiczbStringWagi.Length];
+
+                int i = 0;
+
+                foreach (string s in CiagLiczbStringWagi)
+                {
+                    while (!float.TryParse(s, out CiagLiczbFloatWagi[i]))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"\nERROR: Wystapil niedozwolony znak w {i + 1} liczbie ciagu");
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.Write($"Podaj ponownie {i + 1} cyfre ciagu: ");
+                        Console.ResetColor();
+
+                        if (float.TryParse(Console.ReadLine(), out CiagLiczbFloatWagi[i]))
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            continue;
+                        }
+
+                    }
+                    i++;
+                }
+
+                return CiagLiczbFloatWagi;
+
+            }
+        }
+
         /*-----------------------------------------*/
         /* Klasy do wszystkich funkcji w programie */
         /*-----------------------------------------*/
+
+        /// <summary>
+        /// Klasa zawierajaca algorytm do obliczania sumy liczb
+        /// </summary>
         public class FunkcjaA
         {
 
@@ -234,6 +331,9 @@ namespace Projekt1_Wojciechowski48655
 
         }
 
+        /// <summary>
+        /// Klasa zawierajaca algorytm do obliczania iloczynu
+        /// </summary>
         public class FunkcjaB
         {
 
@@ -326,64 +426,38 @@ namespace Projekt1_Wojciechowski48655
             }
         }
 
-        public class FunkcjaC
+        /// <summary>
+        /// Klasa zawierajaca algorytm do obliczania sredniej arytmetycznej (Average Mean)
+        /// </summary>
+        public class FunkcjaC : WkladListowy
         {
 
-            //deklaracja zmiennych klasowych
-            float suma;
-            float tymczasowaZmienna;
-
-            /* funkcja dzieki ktorej podajemy ciag liczbowy */
-            public void PodajDlugoscCiagu()
+            /// <summary>
+            /// Funkcja obliczajaca srednia arytmetyczna
+            /// </summary>
+            /// <returns>Wynik algorytmu</returns>
+            /// <param name="lista">Parametr lista powinien miec jako argument funkcje "PodajDlugoscCiagu" z klasy "WkladListowy"</param>
+            public double SredniaArytmetyczna(float[] lista)
             {
 
-                //resetowanie zmiennych w razie powtorzenia funkcji
-                suma = 0.0f;
-                tymczasowaZmienna = 0.0f;
+                float sumaCiagu = 0.0f;
 
-                //Prosba o wpisanei danych wejsciowych w formie listy oddzielona przecinkiem
-                Console.Write("\n\n\tPodaj liczby oddzielając je przecinkiem (i.e.: 1 , 2, 3): ");
-                string[] CiagLiczbString = Console.ReadLine().Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
-                float[] CiagLiczbFloat = new float[CiagLiczbString.Length];
-                int i = 0;
-
-                // operacja przeksztalcania listy STRING w liste FLOAT, razem ze sprawdzaniem czy nie ma bledow w zapisie listy STRING
-                foreach (string s in CiagLiczbString)
+                foreach (int x in lista)
                 {
-                    while (!float.TryParse(s, out CiagLiczbFloat[i]))
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"\nERROR: Wystapil niedozwolony znak w {i + 1} liczbie ciagu");
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write($"Podaj ponownie {i + 1} cyfre ciagu: ");
-                        Console.ResetColor();
-
-                        if (float.TryParse(Console.ReadLine(), out CiagLiczbFloat[i]))
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            continue;
-                        }
-
-                    }
-                    i++;
+                    sumaCiagu += x;
                 }
 
-                foreach (int x in CiagLiczbFloat)
-                {
-                    tymczasowaZmienna += x;
-                }
+                double wynik = sumaCiagu / lista.Length;
 
-                //algorytm do obliczania sredniej
-                suma = tymczasowaZmienna / CiagLiczbFloat.Length;
+                return wynik;
             }
 
-            /* PRZEDSTAW WYNIK KONCOWY CALEJ FUNKCJI */
+            /// <summary>
+            /// Funkcja okazujaca w konsoli wynik algorytmu, przywoluje tez funkcje proszaca o dane wejsciowe
+            /// </summary>
             public void WynikFunkcji()
             {
-
+                double wynik = SredniaArytmetyczna(PodajDlugoscCiagu());
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 foreach (var x in "\nWYNIK KONCOWY: ")
                 {
@@ -392,7 +466,7 @@ namespace Projekt1_Wojciechowski48655
                 }
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                foreach (var x in Convert.ToString(suma))
+                foreach (var x in Convert.ToString(wynik))
                 {
                     Console.Write(x);
                     Thread.Sleep(PredkoscPokazywaniaTekstu);
@@ -406,173 +480,99 @@ namespace Projekt1_Wojciechowski48655
 
         }
 
-        public class FunkcjaD
+        /// <summary>
+        /// Klasa zawierajaca algorytm do obliczania sredniej wazonej (Weighted Mean)
+        /// </summary>
+        public class FunkcjaD : WkladListowy
         {
 
-            //deklaracja zmiennych klasowych
-            string[] CiagLiczbString;
-            float[] CiagLiczbFloat;
-
-            string[] CiagLiczbStringWagi;
-            float[] CiagLiczbFloatWagi;
-
-
-            /* funkcja dzieki ktorej podajemy ciag liczbowy */
-            public void PodajDlugoscCiagu()
+            /// <summary>
+            /// Funkcja obliczajaca srednia wazona
+            /// </summary>
+            /// <returns>Wynik algorytmu</returns>
+            /// <param name="lista">Parametr lista powinien miec jako argument funkcje "PodajDlugoscCiagu" z klasy "WkladListowy"</param>
+            /// <param name="listaWag">Parametr lista powinien miec jako argument funkcje "PodajDlugoscCiaguWagi" z klasy "WkladListowy"</param>
+            public double SredniaWazona(float[] lista, float[] listaWag)
             {
 
-                //Prosba o wpisanei danych wejsciowych w formie listy oddzielona przecinkiem
-                Console.Write("\n\n\tPodaj liczby oddzielając je przecinkiem (i.e.: 1 , 2, 3): ");
-                CiagLiczbString = Console.ReadLine().Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
-                CiagLiczbFloat = new float[CiagLiczbString.Length];
-                int i = 0;
+                float[] wynikKazdejWagi = new float[lista.Length];
 
-                // operacja przeksztalcania listy STRING w liste FLOAT, razem ze sprawdzaniem czy nie ma bledow w zapisie listy STRING
-                foreach (string s in CiagLiczbString)
+                for (int x = 0; x < lista.Length; x++)
                 {
-                    while (!float.TryParse(s, out CiagLiczbFloat[i]))
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"\nERROR: Wystapil niedozwolony znak w {i + 1} liczbie ciagu");
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write($"Podaj ponownie {i + 1} cyfre ciagu: ");
-                        Console.ResetColor();
-
-                        if (float.TryParse(Console.ReadLine(), out CiagLiczbFloat[i]))
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            continue;
-                        }
-
-                    }
-                    i++;
+                    wynikKazdejWagi[x] = (lista[x] * listaWag[x]);
                 }
-            }
 
-            public void PodajDlugoscWagi()
-            {
+                double wynik = wynikKazdejWagi.Sum() / listaWag.Sum();
 
-                //Prosba o wpisanei danych wejsciowych w formie listy oddzielona przecinkiem
-                Console.Write("\n\n\tPodaj wagi oddzielając je przecinkiem (i.e.: 1, 2, 3): ");
-                CiagLiczbStringWagi = Console.ReadLine().Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
-                CiagLiczbFloatWagi = new float[CiagLiczbStringWagi.Length];
-
-                int i = 0;
-
-                foreach (string s in CiagLiczbStringWagi)
-                {
-                    while (!float.TryParse(s, out CiagLiczbFloatWagi[i]))
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"\nERROR: Wystapil niedozwolony znak w {i + 1} liczbie ciagu");
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write($"Podaj ponownie {i + 1} cyfre ciagu: ");
-                        Console.ResetColor();
-
-                        if (float.TryParse(Console.ReadLine(), out CiagLiczbFloatWagi[i]))
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            continue;
-                        }
-
-                    }
-                    i++;
-                }
+                return wynik;
 
             }
 
+            /// <summary>
+            /// Funkcja okazujaca w konsoli wynik algorytmu, przywoluje tez funkcje proszaca o dane wejsciowe
+            /// </summary>
             public void WynikFunkcji()
             {
 
-                float[] WynikWag = new float[CiagLiczbFloat.Length];
+                double wynik = SredniaWazona(PodajDlugoscCiagu(), PodajDlugoscWagi());
 
-                for (int x = 0; x < CiagLiczbFloat.Length; x++)
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                foreach (var x in "\nWYNIK KONCOWY: ")
                 {
-                    WynikWag[x] = (CiagLiczbFloat[x] * CiagLiczbFloatWagi[x]);
+                    Console.Write(x);
+                    Thread.Sleep(PredkoscPokazywaniaTekstu);
                 }
 
-                float suma = WynikWag.Sum() / CiagLiczbFloatWagi.Sum();
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                foreach (var x in wynik.ToString("N3"))
+                {
+                    Console.Write(x);
+                    Thread.Sleep(PredkoscPokazywaniaTekstu);
+                }
+                Console.ResetColor();
 
-                Console.WriteLine(string.Join(", ", WynikWag));
-                Console.WriteLine($"Wynik to: {suma}");
+                Console.Write("\n\nNacisnij dowolny klawisz aby wrocic do menu...");
                 Console.ReadKey();
-
             }
         }
 
+        /// <summary>
+        /// Klasa zawierajaca algorytm do obliczania ceny jednostki paszy
+        /// </summary>
         public class FunkcjaE
         {
 
         }
 
-        public class FunkcjaF
+        /// <summary>
+        /// Klasa zawierajaca algorytm do obliczania sredniej harmonicznej (Harmonic Mean)
+        /// </summary>
+        public class FunkcjaF : WkladListowy
         {
 
-            //deklaracja zmiennych klasowych
-            string[] CiagLiczbString;
-            float[] CiagLiczbFloat;
-
-            /* funkcja dzieki ktorej podajemy ciag liczbowy */
-            public float[] PodajDlugoscCiagu()
-            {
-
-                //Prosba o wpisanei danych wejsciowych w formie listy oddzielona przecinkiem
-                Console.Write("\n\n\tPodaj liczby oddzielając je przecinkiem (i.e.: 1 , 2, 3): ");
-                CiagLiczbString = Console.ReadLine().Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
-                CiagLiczbFloat = new float[CiagLiczbString.Length];
-                int i = 0;
-
-                // operacja przeksztalcania listy STRING w liste FLOAT, razem ze sprawdzaniem czy nie ma bledow w zapisie listy STRING
-                foreach (string s in CiagLiczbString)
-                {
-                    while (!float.TryParse(s, out CiagLiczbFloat[i]))
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"\nERROR: Wystapil niedozwolony znak w {i + 1} liczbie ciagu");
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write($"Podaj ponownie {i + 1} cyfre ciagu: ");
-                        Console.ResetColor();
-
-                        if (float.TryParse(Console.ReadLine(), out CiagLiczbFloat[i]))
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            continue;
-                        }
-
-                    }
-                    i++;
-                }
-
-                return CiagLiczbFloat;
-            }
-
-
-            /* funkcja do obliczania sredniej harmonicznej z parametrem array ktorym jest lista wynikajaca z "PodajDlugoscCiagu()" */
-            public double SredniaHarmoniczna(float[] array)
+            /// <summary>
+            /// Funkcja obliczajaca srednia kwadratowa
+            /// </summary>
+            /// <returns>Wynik algorytmu</returns>
+            /// <param name="lista">Parametr lista powinien miec jako argument funkcje "PodajDlugoscCiagu" z klasy "WkladListowy"</param>
+            public double SredniaHarmoniczna(float[] lista)
             {
 
                 double wynik = 0.0d;
                 int i;
 
-                for (i = 0; i < array.Length; i++)
+                for (i = 0; i < lista.Length; i++)
                 {
-                    wynik += (1.0f) / array[i];
+                    wynik += (1.0f) / lista[i];
                 }
 
-                wynik = array.Length * Math.Pow(wynik, -1.0);
+                wynik = lista.Length * Math.Pow(wynik, -1.0);
                 return wynik;
             }
 
-            /* PRZEDSTAW WYNIK KONCOWY CALEJ FUNKCJI */
+            /// <summary>
+            /// Funkcja okazujaca w konsoli wynik algorytmu, przywoluje tez funkcje proszaca o dane wejsciowe
+            /// </summary>
             public void WynikFunkcji()
             {
 
@@ -599,72 +599,38 @@ namespace Projekt1_Wojciechowski48655
             }
         }
 
-        public class FunkcjaG
+        /// <summary>
+        /// Klasa zawierajaca algorytm do obliczania sredniej geometrycznej (Geometric Mean)
+        /// </summary>
+        public class FunkcjaG : WkladListowy
         {
 
-            //deklaracja zmiennych klasowych
-            string[] CiagLiczbString;
-            float[] CiagLiczbFloat;
-
-            /* funkcja dzieki ktorej podajemy ciag liczbowy */
-            public float[] PodajDlugoscCiagu()
-            {
-
-                //Prosba o wpisanei danych wejsciowych w formie listy oddzielona przecinkiem
-                Console.Write("\n\n\tPodaj liczby oddzielając je przecinkiem (i.e.: 1 , 2, 3): ");
-                CiagLiczbString = Console.ReadLine().Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
-                CiagLiczbFloat = new float[CiagLiczbString.Length];
-                int i = 0;
-
-                // operacja przeksztalcania listy STRING w liste FLOAT, razem ze sprawdzaniem czy nie ma bledow w zapisie listy STRING
-                foreach (string s in CiagLiczbString)
-                {
-                    while (!float.TryParse(s, out CiagLiczbFloat[i]))
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"\nERROR: Wystapil niedozwolony znak w {i + 1} liczbie ciagu");
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write($"Podaj ponownie {i + 1} cyfre ciagu: ");
-                        Console.ResetColor();
-
-                        if (float.TryParse(Console.ReadLine(), out CiagLiczbFloat[i]))
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            continue;
-                        }
-
-                    }
-                    i++;
-                }
-
-                return CiagLiczbFloat;
-            }
-
-            /* funkcja do obliczania sredniej geometrycznej z parametrem array pochodzacym od PodajDlugoscCiagu */
-            public double SredniaGeometryczna(float[] array)
+            /// <summary>
+            /// Funkcja obliczajaca srednia geometryczna
+            /// </summary>
+            /// <returns>Wynik algorytmu</returns>
+            /// <param name="lista">Parametr lista powinien miec jako argument funkcje "PodajDlugoscCiagu" z klasy "WkladListowy"</param>
+            public double SredniaGeometryczna(float[] lista)
             {
 
                 double wynik = 1.0d;
                 int i;
 
-                for (i = 0; i < array.Length; i++)
+                for (i = 0; i < lista.Length; i++)
                 {
 
-                    wynik *= array[i];
+                    wynik *= lista[i];
 
                 }
 
-                Console.WriteLine(wynik);
-
-                wynik = Math.Pow(wynik, 1.0 / array.Length);
+                wynik = Math.Pow(wynik, 1.0 / lista.Length);
 
                 return wynik;
             }
 
-            /* PRZEDSTAW WYNIK KONCOWY CALEJ FUNKCJI */
+            /// <summary>
+            /// Funkcja okazujaca w konsoli wynik algorytmu, przywoluje tez funkcje proszaca o dane wejsciowe
+            /// </summary>
             public void WynikFunkcji()
             {
 
@@ -692,66 +658,35 @@ namespace Projekt1_Wojciechowski48655
 
         }
 
-        public class FunkcjaH
+        /// <summary>
+        /// Klasa zawierajaca algorytm do obliczania sredniej kwadratowej (RMS)
+        /// </summary>
+        public class FunkcjaH : WkladListowy
         {
 
-            //deklaracja zmiennych klasowych
-            string[] CiagLiczbString;
-            float[] CiagLiczbFloat;
-
-            /* funkcja dzieki ktorej podajemy ciag liczbowy */
-            public float[] PodajDlugoscCiagu()
-            {
-
-                //Prosba o wpisanei danych wejsciowych w formie listy oddzielona przecinkiem
-                Console.Write("\n\n\tPodaj liczby oddzielając je przecinkiem (i.e.: 1 , 2, 3): ");
-                CiagLiczbString = Console.ReadLine().Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
-                CiagLiczbFloat = new float[CiagLiczbString.Length];
-                int i = 0;
-
-                // operacja przeksztalcania listy STRING w liste FLOAT, razem ze sprawdzaniem czy nie ma bledow w zapisie listy STRING
-                foreach (string s in CiagLiczbString)
-                {
-                    while (!float.TryParse(s, out CiagLiczbFloat[i]))
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"\nERROR: Wystapil niedozwolony znak w {i + 1} liczbie ciagu");
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write($"Podaj ponownie {i + 1} cyfre ciagu: ");
-                        Console.ResetColor();
-
-                        if (float.TryParse(Console.ReadLine(), out CiagLiczbFloat[i]))
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            continue;
-                        }
-
-                    }
-                    i++;
-                }
-
-                return CiagLiczbFloat;
-            }
-
-            public double SredniaKwadratowa(float[] array)
+            /// <summary>
+            /// Funkcja obliczajaca srednia kwadratowa
+            /// </summary>
+            /// <returns>Wynik algorytmu</returns>
+            /// <param name="lista">Parametr lista powinien miec jako argument funkcje "PodajDlugoscCiagu" z klasy "WkladListowy"</param>
+            public double SredniaKwadratowa(float[] lista)
             {
                 double wynik = 0.0d;
                 double sumaLicznika = 0.0d;
                 int i;
-                for (i = 0; i < array.Length; i++)
+                for (i = 0; i < lista.Length; i++)
                 {
-                    sumaLicznika += (array[i] * array[i]);
+                    sumaLicznika += (lista[i] * lista[i]);
                 }
 
-                wynik = Math.Sqrt(sumaLicznika / array.Length);
+                wynik = Math.Sqrt(sumaLicznika / lista.Length);
 
                 return wynik;
             }
 
-            /* PRZEDSTAW WYNIK KONCOWY CALEJ FUNKCJI */
+            /// <summary>
+            /// Funkcja okazujaca w konsoli wynik algorytmu, przywoluje tez funkcje proszaca o dane wejsciowe
+            /// </summary>
             public void WynikFunkcji()
             {
 
@@ -778,6 +713,9 @@ namespace Projekt1_Wojciechowski48655
             }
         }
 
+        /// <summary>
+        /// Klasa zawierajaca algorytm do obliczania sredniej potegowej (Generalized Mean)
+        /// </summary>
         public class FunkcjaI
         {
 
@@ -838,7 +776,6 @@ namespace Projekt1_Wojciechowski48655
                         mainGUI.PokazNazweProgramu(tytulProgramu);
                         mainGUI.PokazNazweFunkcji(ListaWyborow[2]);
 
-                        funkcjaC.PodajDlugoscCiagu();
                         funkcjaC.WynikFunkcji();
                         Console.WriteLine($"Wybrales funkcje: {ListaWyborow[2]}");
                         break;
@@ -848,8 +785,6 @@ namespace Projekt1_Wojciechowski48655
                         mainGUI.PokazNazweProgramu(tytulProgramu);
                         mainGUI.PokazNazweFunkcji(ListaWyborow[3]);
 
-                        funkcjaD.PodajDlugoscCiagu();
-                        funkcjaD.PodajDlugoscWagi();
                         funkcjaD.WynikFunkcji();
                         Console.WriteLine($"Wybrales funkcje: {ListaWyborow[3]}");
                         break;
