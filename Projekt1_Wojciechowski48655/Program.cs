@@ -36,6 +36,7 @@ namespace Projekt1_Wojciechowski48655
                 "I: Obliczenie sredniej potegowej",
                 "Z: Zakonczenie programu (wyjscie)"
             };
+		static readonly string wyjscieZFunkcji = "\nNacisnij dowolny klawisz aby wrocic do menu...";
         const int PredkoscPokazywaniaTekstu = 5;
         static ConsoleKeyInfo WybranyKlawisz;
 
@@ -137,7 +138,7 @@ namespace Projekt1_Wojciechowski48655
             }
         }
 
-        public abstract class WkladListowy
+        public class WkladListowy
         {
 
             /// <summary>
@@ -154,7 +155,7 @@ namespace Projekt1_Wojciechowski48655
                 Console.ResetColor();
                 Console.Write(": ");
 
-                string[] CiagLiczbString = Console.ReadLine().Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
+                string[] CiagLiczbString = Console.ReadLine().Split(',');
                 float[] CiagLiczbFloat = new float[CiagLiczbString.Length];
                 int i = 0;
 
@@ -171,6 +172,7 @@ namespace Projekt1_Wojciechowski48655
 
                         if (float.TryParse(Console.ReadLine(), out CiagLiczbFloat[i]))
                         {
+							Console.WriteLine();
                             break;
                         }
                         else
@@ -198,7 +200,7 @@ namespace Projekt1_Wojciechowski48655
                 Console.ResetColor();
                 Console.Write(": ");
 
-                string[] CiagLiczbStringWagi = Console.ReadLine().Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
+                string[] CiagLiczbStringWagi = Console.ReadLine().Split(',');
                 float[] CiagLiczbFloatWagi = new float[CiagLiczbStringWagi.Length];
 
                 int i = 0;
@@ -215,7 +217,8 @@ namespace Projekt1_Wojciechowski48655
 
                         if (float.TryParse(Console.ReadLine(), out CiagLiczbFloatWagi[i]))
                         {
-                            break;
+							Console.WriteLine();
+							break;
                         }
                         else
                         {
@@ -473,7 +476,7 @@ namespace Projekt1_Wojciechowski48655
                 }
                 Console.ResetColor();
 
-                Console.Write("\n\nNacisnij dowolny klawisz aby wrocic do menu...");
+                Console.Write(wyjscieZFunkcji);
                 Console.ReadKey();
 
             }
@@ -531,7 +534,7 @@ namespace Projekt1_Wojciechowski48655
                 }
                 Console.ResetColor();
 
-                Console.Write("\n\nNacisnij dowolny klawisz aby wrocic do menu...");
+                Console.Write(wyjscieZFunkcji);
                 Console.ReadKey();
             }
         }
@@ -593,7 +596,7 @@ namespace Projekt1_Wojciechowski48655
                 }
                 Console.ResetColor();
 
-                Console.Write("\n\nNacisnij dowolny klawisz aby wrocic do menu...");
+                Console.Write(wyjscieZFunkcji);
                 Console.ReadKey();
 
             }
@@ -651,7 +654,7 @@ namespace Projekt1_Wojciechowski48655
                 }
                 Console.ResetColor();
 
-                Console.Write("\n\nNacisnij dowolny klawisz aby wrocic do menu...");
+                Console.Write(wyjscieZFunkcji);
                 Console.ReadKey();
 
             }
@@ -707,7 +710,7 @@ namespace Projekt1_Wojciechowski48655
                 }
                 Console.ResetColor();
 
-                Console.Write("\n\nNacisnij dowolny klawisz aby wrocic do menu...");
+                Console.Write(wyjscieZFunkcji);
                 Console.ReadKey();
 
             }
@@ -716,10 +719,78 @@ namespace Projekt1_Wojciechowski48655
         /// <summary>
         /// Klasa zawierajaca algorytm do obliczania sredniej potegowej (Generalized Mean)
         /// </summary>
-        public class FunkcjaI
+        public class FunkcjaI : WkladListowy
         {
 
-        }
+			/// <summary>
+			/// Funkcja zwraca rzad K do sredniej potegowej
+			/// </summary>
+			/// <returns></returns>
+			public int rzadSredniejPotegowej() {
+				int rzad;
+
+				foreach (var x in "\tProszę podac rzad do średniej potegowej: ") {
+					Console.Write(x);
+					Thread.Sleep(PredkoscPokazywaniaTekstu);
+				}
+
+				while (!int.TryParse(Console.ReadLine(), out rzad)) {
+					Console.ForegroundColor = ConsoleColor.Red;
+					Console.WriteLine("\nERROR: wystapił niedozwolony znak w zapisaniu wartości");
+					Console.ForegroundColor = ConsoleColor.Yellow;
+					Console.Write("Proszę wpisać ponownie wartość: ");
+					Console.ResetColor();
+				}
+				return rzad;
+			}
+
+			/// <summary>
+			/// Funkcja obliczajaca srednia kwadratowa
+			/// </summary>
+			/// <returns>Wynik algorytmu</returns>
+			/// <param name="lista">Parametr lista powinien miec jako argument funkcje "PodajDlugoscCiagu" z klasy "WkladListowy"</param>
+			public double SredniaPotegowa(float[] lista) {
+
+				int rzadK = rzadSredniejPotegowej();
+
+				double wynik = 0.0d;
+				double sumaLicznika = 0.0d;
+				int i;
+
+				for (i = 0; i < lista.Length; i++) {
+					sumaLicznika += Math.Pow(lista[i], rzadK);
+				}
+
+				wynik = Math.Pow(sumaLicznika / lista.Length, 1.0 / rzadK);
+				return wynik;
+			}
+
+			/// <summary>
+			/// Funkcja okazujaca w konsoli wynik algorytmu, przywoluje tez funkcje proszaca o dane wejsciowe
+			/// </summary>
+			public void WynikFunkcji() {
+
+				double wynik = SredniaPotegowa(PodajDlugoscCiagu());
+
+				Console.ForegroundColor = ConsoleColor.Cyan;
+				foreach (var x in "\nWYNIK KONCOWY: ") {
+					Console.Write(x);
+					Thread.Sleep(PredkoscPokazywaniaTekstu);
+				}
+
+				Console.ForegroundColor = ConsoleColor.Yellow;
+				foreach (var x in wynik.ToString("N3")) {
+					Console.Write(x);
+					Thread.Sleep(PredkoscPokazywaniaTekstu);
+				}
+				Console.ResetColor();
+
+				Console.Write(wyjscieZFunkcji);
+				Console.ReadKey();
+
+			}
+
+		}
 
         /*---------------------------------*/
         /* Metoda main, startujaca program */
@@ -737,6 +808,7 @@ namespace Projekt1_Wojciechowski48655
             FunkcjaF funkcjaF = new FunkcjaF();
             FunkcjaG funkcjaG = new FunkcjaG();
             FunkcjaH funkcjaH = new FunkcjaH();
+			FunkcjaI funkcjaI = new FunkcjaI();
 
             //glowna petla powtarzajaca program
             do
@@ -820,8 +892,11 @@ namespace Projekt1_Wojciechowski48655
 
                     case ConsoleKey.I:
                         Console.Clear();
-                        Console.WriteLine($"Wybrales funkcje: {ListaWyborow[7]}");
-                        break;
+						mainGUI.PokazNazweProgramu(tytulProgramu);
+						mainGUI.PokazNazweFunkcji(ListaWyborow[8]);
+
+						funkcjaI.WynikFunkcji();
+						break;
 
                     case ConsoleKey.Z:
                         mainGUI.PokazAutora("Mateusz Wojciechowski", "48655");
