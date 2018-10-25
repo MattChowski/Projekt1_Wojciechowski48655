@@ -23,8 +23,8 @@ namespace Projekt1_Wojciechowski48655
         /*-------------------------------------------------------------------*/
         /* Deklaracja zmiennych globalnych, mozna pozmieniac wedlug upodoban */
         /*-------------------------------------------------------------------*/
-        static readonly string tytulProgramu = "ProjektNr1 - funkcje matematyczne";
-        static readonly string[] ListaWyborow = {
+        static readonly string MWtytulProgramu = "ProjektNr1 - funkcje matematyczne";
+        static readonly string[] MWlistaWyborow = {
                 "A: Obliczenie sumy",
                 "B: Obliczenie Iloczynu",
                 "C: Obliczenie sredniej arytmetycznej",
@@ -36,9 +36,9 @@ namespace Projekt1_Wojciechowski48655
                 "I: Obliczenie sredniej potegowej",
                 "Z: Zakonczenie programu (wyjscie)"
             };
-		static readonly string wyjscieZFunkcji = "\nNacisnij dowolny klawisz aby wrocic do menu...";
-        const int PredkoscPokazywaniaTekstu = 5;
-        static ConsoleKeyInfo WybranyKlawisz;
+		static readonly string MWwyjscieZFunkcji = "\nNacisnij dowolny klawisz aby wrocic do menu...";
+        const int MWpredkoscPokazywaniaTekstu = 5;
+        static ConsoleKeyInfo MWwybranyKlawisz;
 
         /*--------------------------------------------*/
         /* konstruktor klasy, ustawia rozmiar konsoli */
@@ -52,37 +52,42 @@ namespace Projekt1_Wojciechowski48655
         /*------------------------------------------------*/
         /* Metody Interfejsu uzytkownika i inne przydatne */
         /*------------------------------------------------*/
-        public class MainGUI
+        public class MWGlownyInterfejs
         {
 
-            //pokazanie nazwy programu
-            public void PokazNazweProgramu(string tytul)
+            /// <summary>
+			/// Pokazanie nazwe programu i wycentrowanie go
+			/// </summary>
+			/// <param name="MWtytul"></param>
+            public void MWpokazNazweProgramu(string MWtytul)
             {
-                string lines = "";
-                for (int x = 0; x < tytul.Length; x++)
+                string MWpusteLinie = "";
+                for (int x = 0; x < MWtytul.Length; x++)
                 {
-                    lines += " ";
+                    MWpusteLinie += " ";
                 }
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("");
-                Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (lines.Length / 2)) + "}", "|| " + lines + " ||");
-                Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (tytul.Length / 2)) + "}", "|| " + tytul + " ||");
-                Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (lines.Length / 2)) + "}", "|| " + lines + " ||");
+                Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (MWpusteLinie.Length / 2)) + "}", "|| " + MWpusteLinie + " ||");
+                Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (MWtytul.Length / 2)) + "}", "|| " + MWtytul + " ||");
+                Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (MWpusteLinie.Length / 2)) + "}", "|| " + MWpusteLinie + " ||");
                 Console.WriteLine("");
                 Console.ForegroundColor = ConsoleColor.White;
             }
 
-            //pokazanie listy menu
-            public void PokazListeWyborow()
+            /// <summary>
+			/// Funkcja pokazuje liste menu uzywajac zmienna MWlistaWyborow
+			/// </summary>
+            public void MWpokazListeWyborow()
             {
 
                 foreach (var z in "Menu funkcjonalne:\n\n")
                 {
                     Console.Write(z);
-                    Thread.Sleep(PredkoscPokazywaniaTekstu * 5);
+                    Thread.Sleep(MWpredkoscPokazywaniaTekstu * 5);
                 }
 
-                foreach (var x in ListaWyborow)
+                foreach (var x in MWlistaWyborow)
                 {
 
                     Console.ForegroundColor = ConsoleColor.Magenta;
@@ -93,7 +98,7 @@ namespace Projekt1_Wojciechowski48655
                     {
 
                         Console.Write(y);
-                        Thread.Sleep(PredkoscPokazywaniaTekstu);
+                        Thread.Sleep(MWpredkoscPokazywaniaTekstu);
                     }
                     Console.WriteLine("");
                 }
@@ -102,50 +107,57 @@ namespace Projekt1_Wojciechowski48655
                 foreach (var x in "\nWybierz Funkcje z powyzszych...")
                 {
                     Console.Write(x);
-                    Thread.Sleep(PredkoscPokazywaniaTekstu);
+                    Thread.Sleep(MWpredkoscPokazywaniaTekstu);
 
                 }
             }
 
-            //pokazanie nazwy obecnej funkcji
-            public void PokazNazweFunkcji(string s)
+            /// <summary>
+			/// Funkcja pokazuje w konsoli obecna uzywana funkcje
+			/// </summary>
+			/// <param name="s"></param>
+            public void MWpokazNazweFunkcji(string s)
             {
 
                 foreach (var x in $"Teraz obslugujesz funkcje - ")
                 {
                     Console.Write(x);
-                    Thread.Sleep(PredkoscPokazywaniaTekstu);
+                    Thread.Sleep(MWpredkoscPokazywaniaTekstu);
                 }
 
                 Console.ForegroundColor = ConsoleColor.Blue;
                 foreach (var x in s.Skip(3))
                 {
                     Console.Write(x);
-                    Thread.Sleep(PredkoscPokazywaniaTekstu);
+                    Thread.Sleep(MWpredkoscPokazywaniaTekstu);
                 }
                 Console.ForegroundColor = ConsoleColor.White;
             }
 
-            //wylaczenie programu
-            public void PokazAutora(string autorProgramu, string numerAlbumu)
+            /// <summary>
+			/// Funkcja wylacza program, pokazujac autora programu i numer albumu studenta
+			/// </summary>
+			/// <param name="MWautorProgramu"></param>
+			/// <param name="MWnumerAlbumu"></param>
+            public void PokazAutora(string MWautorProgramu, string MWnumerAlbumu)
             {
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("");
-                Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (autorProgramu.Length / 2)) + "}", autorProgramu);
-                Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (numerAlbumu.Length / 2)) + "}", numerAlbumu);
+                Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (MWautorProgramu.Length / 2)) + "}", MWautorProgramu);
+                Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (MWnumerAlbumu.Length / 2)) + "}", MWnumerAlbumu);
                 Console.WriteLine("");
                 Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
-        public class WkladListowy
+        public class MWWkladListowy
         {
 
             /// <summary>
             /// Funkcja ktora nam zwraca dlugosc ciagu w formie Array, sprawdza rowniez czy dane sa poprawnie wpisane.
             /// </summary>
             /// <returns>CiagLiczbFloat</returns>
-            public float[] PodajDlugoscCiagu()
+            public float[] MWpodajDlugoscCiagu()
             {
 
                 //Prosba o wpisanei danych wejsciowych w formie listy oddzielona przecinkiem
@@ -155,22 +167,22 @@ namespace Projekt1_Wojciechowski48655
                 Console.ResetColor();
                 Console.Write(": ");
 
-                string[] CiagLiczbString = Console.ReadLine().Split(',');
-                float[] CiagLiczbFloat = new float[CiagLiczbString.Length];
-                int i = 0;
+                string[] MWciagLiczbString = Console.ReadLine().Split(',');
+                float[] MWciagLiczbFloat = new float[MWciagLiczbString.Length];
+                int MWiteracyjna = 0;
 
                 // operacja przeksztalcania listy STRING w liste FLOAT, razem ze sprawdzaniem czy nie ma bledow w zapisie listy STRING
-                foreach (string s in CiagLiczbString)
+                foreach (string s in MWciagLiczbString)
                 {
-                    while (!float.TryParse(s, out CiagLiczbFloat[i]))
+                    while (!float.TryParse(s, out MWciagLiczbFloat[MWiteracyjna]))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"\nERROR: Wystapil niedozwolony znak w {i + 1} liczbie ciagu");
+                        Console.WriteLine($"\nERROR: Wystapil niedozwolony znak w {MWiteracyjna + 1} liczbie ciagu");
                         Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write($"Podaj ponownie {i + 1} cyfre ciagu: ");
+                        Console.Write($"Podaj ponownie {MWiteracyjna + 1} cyfre ciagu: ");
                         Console.ResetColor();
 
-                        if (float.TryParse(Console.ReadLine(), out CiagLiczbFloat[i]))
+                        if (float.TryParse(Console.ReadLine(), out MWciagLiczbFloat[MWiteracyjna]))
                         {
 							Console.WriteLine();
                             break;
@@ -181,16 +193,16 @@ namespace Projekt1_Wojciechowski48655
                         }
 
                     }
-                    i++;
+                    MWiteracyjna++;
                 }
-                return CiagLiczbFloat;
+                return MWciagLiczbFloat;
             }
 
             /// <summary>
             /// Funkcja ktora nam zwraca dlugosc ciagu WAGI w formie Array, sprawdza rowniez czy dane sa poprawnie wpisane.
             /// </summary>
             /// <returns>CiagLiczbFloat</returns>
-            public float[] PodajDlugoscWagi()
+            public float[] MWpodajDlugoscWagi()
             {
 
                 //Prosba o wpisanei danych wejsciowych w formie listy oddzielona przecinkiem
@@ -200,22 +212,22 @@ namespace Projekt1_Wojciechowski48655
                 Console.ResetColor();
                 Console.Write(": ");
 
-                string[] CiagLiczbStringWagi = Console.ReadLine().Split(',');
-                float[] CiagLiczbFloatWagi = new float[CiagLiczbStringWagi.Length];
+                string[] MWciagLiczbStringWagi = Console.ReadLine().Split(',');
+                float[] MWciagLiczbFloatWagi = new float[MWciagLiczbStringWagi.Length];
 
-                int i = 0;
+                int MWiteracyjna = 0;
 
-                foreach (string s in CiagLiczbStringWagi)
+                foreach (string s in MWciagLiczbStringWagi)
                 {
-                    while (!float.TryParse(s, out CiagLiczbFloatWagi[i]))
+                    while (!float.TryParse(s, out MWciagLiczbFloatWagi[MWiteracyjna]))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"\nERROR: Wystapil niedozwolony znak w {i + 1} liczbie ciagu");
+                        Console.WriteLine($"\nERROR: Wystapil niedozwolony znak w {MWiteracyjna + 1} liczbie ciagu");
                         Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write($"Podaj ponownie {i + 1} cyfre ciagu: ");
+                        Console.Write($"Podaj ponownie {MWiteracyjna + 1} cyfre ciagu: ");
                         Console.ResetColor();
 
-                        if (float.TryParse(Console.ReadLine(), out CiagLiczbFloatWagi[i]))
+                        if (float.TryParse(Console.ReadLine(), out MWciagLiczbFloatWagi[MWiteracyjna]))
                         {
 							Console.WriteLine();
 							break;
@@ -226,10 +238,10 @@ namespace Projekt1_Wojciechowski48655
                         }
 
                     }
-                    i++;
+                    MWiteracyjna++;
                 }
 
-                return CiagLiczbFloatWagi;
+                return MWciagLiczbFloatWagi;
 
             }
         }
@@ -241,23 +253,25 @@ namespace Projekt1_Wojciechowski48655
         /// <summary>
         /// Klasa zawierajaca algorytm do obliczania sumy liczb
         /// </summary>
-        public class FunkcjaA
+        public class MWFunkcjaA
         {
 
             //deklaracja zmiennych klasowych
-            private int iloscCiagu;
-            private float suma;
-            private float wartoscWyrazuCiagu;
+            private int MWiloscCiagu;
+            private float MWsuma;
+            private float MWwartoscWyrazuCiagu;
 
-            /* deklarowanie ciagu liczbowego */
-            public void PodajDlugoscCiagu()
+            /// <summary>
+			/// Podawanie ciagu liczbowego
+			/// </summary>
+            public void MWpodajDlugoscCiagu()
             {
                 Console.Write("\n\n\tPodaj dlugosc ciagu liczbowego: ");
 
                 //sprawdzanie czy wpisany znak jest poprawny i <= 1
                 do
                 {
-                    while (!int.TryParse(Console.ReadLine(), out iloscCiagu))
+                    while (!int.TryParse(Console.ReadLine(), out MWiloscCiagu))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("\nERROR: Wystapil niedozwolony znak, sproboj ponownie");
@@ -266,7 +280,7 @@ namespace Projekt1_Wojciechowski48655
                         Console.ResetColor();
                     }
 
-                    if (iloscCiagu <= 1)
+                    if (MWiloscCiagu <= 1)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("\nERROR: Wartosc N musi byc wieksza od 1");
@@ -275,24 +289,26 @@ namespace Projekt1_Wojciechowski48655
                         Console.ResetColor();
                     }
 
-                } while (iloscCiagu <= 1);
+                } while (MWiloscCiagu <= 1);
 
                 Console.WriteLine();
             }
 
-            /* podawanie wartosci kazdego wyrazu z ciagu liczbowego */
-            public void PodajKazdyWyrazCiagu()
+			/// <summary>
+			/// Podawanie wartosci kazdego wyrazu z ciagu liczbowego
+			/// </summary>
+			public void MWpodajKazdyWyrazCiagu()
             {
 
                 //resetowanie zmiennych w razie powtorzenia funkcji
-                suma = 0.0f;
+                MWsuma = 0.0f;
 
                 //operacja podawania wyrazow ciagu
-                for (int x = 1; x <= iloscCiagu; x++)
+                for (int x = 1; x <= MWiloscCiagu; x++)
                 {
                     Console.Write($"\tPodaj wartosc {x}-go wyrazu ciagu liczbowego: ");
 
-                    while (!float.TryParse(Console.ReadLine(), out wartoscWyrazuCiagu))
+                    while (!float.TryParse(Console.ReadLine(), out MWwartoscWyrazuCiagu))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine($"\nERROR - Blad w zapisie {x}-go wyrazu");
@@ -302,32 +318,34 @@ namespace Projekt1_Wojciechowski48655
                     }
 
                     //algorytm obliczania sumy
-                    suma += wartoscWyrazuCiagu;
+                    MWsuma += MWwartoscWyrazuCiagu;
                 }
 
                 Console.WriteLine();
             }
 
-            /* PRZEDSTAW WYNIK KONCOWY CALEJ FUNKCJI */
-            public void WynikFunkcji()
+			/// <summary>
+			/// Przedstaw wynik koncowy calej funkcji
+			/// </summary>
+			public void MWwynikFunkcji()
             {
 
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 foreach (var x in "WYNIK KONCOWY: ")
                 {
                     Console.Write(x);
-                    Thread.Sleep(PredkoscPokazywaniaTekstu);
+                    Thread.Sleep(MWpredkoscPokazywaniaTekstu);
                 }
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                foreach (var x in Convert.ToString(suma))
+                foreach (var x in Convert.ToString(MWsuma))
                 {
                     Console.Write(x);
-                    Thread.Sleep(PredkoscPokazywaniaTekstu);
+                    Thread.Sleep(MWpredkoscPokazywaniaTekstu);
                 }
                 Console.ResetColor();
 
-                Console.Write("\n\nNacisnij dowolny klawisz aby wrocic do menu...");
+                Console.Write(MWwyjscieZFunkcji);
                 Console.ReadKey();
 
             }
@@ -337,23 +355,25 @@ namespace Projekt1_Wojciechowski48655
         /// <summary>
         /// Klasa zawierajaca algorytm do obliczania iloczynu
         /// </summary>
-        public class FunkcjaB
+        public class MWFunkcjaB
         {
 
             //deklaracja zmiennych klasowych
-            private int iloscCiagu;
-            private float suma;
-            private float wartoscWyrazuCiagu;
+            private int MWiloscCiagu;
+            private float MWsuma;
+            private float MWwartoscWyrazuCiagu;
 
-            /* deklarowanie ciagu liczbowego */
-            public void PodajDlugoscCiagu()
+			/// <summary>
+			/// Podawanie ciagu liczbowego
+			/// </summary>
+			public void MWpodajDlugoscCiagu()
             {
                 Console.Write("\n\n\tPodaj dlugosc ciagu liczbowego: ");
 
                 //sprawdzanie czy wpisany znak jest poprawny i <= 1
                 do
                 {
-                    while (!int.TryParse(Console.ReadLine(), out iloscCiagu))
+                    while (!int.TryParse(Console.ReadLine(), out MWiloscCiagu))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("\nERROR: Wystapil niedozwolony znak, sproboj ponownie");
@@ -362,7 +382,7 @@ namespace Projekt1_Wojciechowski48655
                         Console.ResetColor();
                     }
 
-                    if (iloscCiagu <= 1)
+                    if (MWiloscCiagu <= 1)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("\nERROR: Wartosc N musi byc wieksza od 1");
@@ -371,24 +391,26 @@ namespace Projekt1_Wojciechowski48655
                         Console.ResetColor();
                     }
 
-                } while (iloscCiagu <= 1);
+                } while (MWiloscCiagu <= 1);
 
                 Console.WriteLine();
             }
 
-            /* podawanie wartosci kazdego wyrazu z ciagu liczbowego */
-            public void PodajKazdyWyrazCiagu()
+			/// <summary>
+			/// Podawanie wartosci kazdego wyrazu z ciagu liczbowego
+			/// </summary>
+			public void MWpodajKazdyWyrazCiagu()
             {
 
                 //resetowanie zmiennych w razie powtorzenia funkcji
-                suma = 1.0f;
+                MWsuma = 1.0f;
 
                 //operacja podawania wyrazow ciagu
-                for (int x = 1; x <= iloscCiagu; x++)
+                for (int x = 1; x <= MWiloscCiagu; x++)
                 {
                     Console.Write($"\tPodaj wartosc {x}-go wyrazu ciagu liczbowego: ");
 
-                    while (!float.TryParse(Console.ReadLine(), out wartoscWyrazuCiagu))
+                    while (!float.TryParse(Console.ReadLine(), out MWwartoscWyrazuCiagu))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine($"\nERROR - Blad w zapisie {x}-go wyrazu");
@@ -398,32 +420,34 @@ namespace Projekt1_Wojciechowski48655
                     }
 
                     //algorytm obliczania sumy
-                    suma *= wartoscWyrazuCiagu;
+                    MWsuma *= MWwartoscWyrazuCiagu;
                 }
 
                 Console.WriteLine();
             }
 
-            /* PRZEDSTAW WYNIK KONCOWY CALEJ FUNKCJI */
-            public void WynikFunkcji()
+			/// <summary>
+			/// Przedstaw wynik koncowy calej funkcji
+			/// </summary>
+			public void MWwynikFunkcji()
             {
 
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 foreach (var x in "WYNIK KONCOWY: ")
                 {
                     Console.Write(x);
-                    Thread.Sleep(PredkoscPokazywaniaTekstu);
+                    Thread.Sleep(MWpredkoscPokazywaniaTekstu);
                 }
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                foreach (var x in Convert.ToString(suma))
+                foreach (var x in Convert.ToString(MWsuma))
                 {
                     Console.Write(x);
-                    Thread.Sleep(PredkoscPokazywaniaTekstu);
+                    Thread.Sleep(MWpredkoscPokazywaniaTekstu);
                 }
                 Console.ResetColor();
 
-                Console.Write("\n\nNacisnij dowolny klawisz aby wrocic do menu...");
+                Console.Write(MWwyjscieZFunkcji);
                 Console.ReadKey();
 
             }
@@ -432,51 +456,51 @@ namespace Projekt1_Wojciechowski48655
         /// <summary>
         /// Klasa zawierajaca algorytm do obliczania sredniej arytmetycznej (Average Mean)
         /// </summary>
-        public class FunkcjaC : WkladListowy
+        public class MWFunkcjaC : MWWkladListowy
         {
 
             /// <summary>
             /// Funkcja obliczajaca srednia arytmetyczna
             /// </summary>
             /// <returns>Wynik algorytmu</returns>
-            /// <param name="lista">Parametr lista powinien miec jako argument funkcje "PodajDlugoscCiagu" z klasy "WkladListowy"</param>
-            public double SredniaArytmetyczna(float[] lista)
+            /// <param name="MWlista">Parametr lista powinien miec jako argument funkcje "PodajDlugoscCiagu" z klasy "WkladListowy"</param>
+            public double MWsredniaArytmetyczna(float[] MWlista)
             {
 
-                float sumaCiagu = 0.0f;
+                float MWsumaCiagu = 0.0f;
 
-                foreach (int x in lista)
+                foreach (int x in MWlista)
                 {
-                    sumaCiagu += x;
+                    MWsumaCiagu += x;
                 }
 
-                double wynik = sumaCiagu / lista.Length;
+                double MWwynik = MWsumaCiagu / MWlista.Length;
 
-                return wynik;
+                return MWwynik;
             }
 
             /// <summary>
             /// Funkcja okazujaca w konsoli wynik algorytmu, przywoluje tez funkcje proszaca o dane wejsciowe
             /// </summary>
-            public void WynikFunkcji()
+            public void MWwynikFunkcji()
             {
-                double wynik = SredniaArytmetyczna(PodajDlugoscCiagu());
+                double MWwynik = MWsredniaArytmetyczna(MWpodajDlugoscCiagu());
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 foreach (var x in "\nWYNIK KONCOWY: ")
                 {
                     Console.Write(x);
-                    Thread.Sleep(PredkoscPokazywaniaTekstu);
+                    Thread.Sleep(MWpredkoscPokazywaniaTekstu);
                 }
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                foreach (var x in Convert.ToString(wynik))
+                foreach (var x in Convert.ToString(MWwynik))
                 {
                     Console.Write(x);
-                    Thread.Sleep(PredkoscPokazywaniaTekstu);
+                    Thread.Sleep(MWpredkoscPokazywaniaTekstu);
                 }
                 Console.ResetColor();
 
-                Console.Write(wyjscieZFunkcji);
+                Console.Write(MWwyjscieZFunkcji);
                 Console.ReadKey();
 
             }
@@ -486,28 +510,28 @@ namespace Projekt1_Wojciechowski48655
         /// <summary>
         /// Klasa zawierajaca algorytm do obliczania sredniej wazonej (Weighted Mean)
         /// </summary>
-        public class FunkcjaD : WkladListowy
+        public class MWFunkcjaD : MWWkladListowy
         {
 
             /// <summary>
             /// Funkcja obliczajaca srednia wazona
             /// </summary>
             /// <returns>Wynik algorytmu</returns>
-            /// <param name="lista">Parametr lista powinien miec jako argument funkcje "PodajDlugoscCiagu" z klasy "WkladListowy"</param>
-            /// <param name="listaWag">Parametr lista powinien miec jako argument funkcje "PodajDlugoscCiaguWagi" z klasy "WkladListowy"</param>
-            public double SredniaWazona(float[] lista, float[] listaWag)
+            /// <param name="MWlista">Parametr lista powinien miec jako argument funkcje "PodajDlugoscCiagu" z klasy "WkladListowy"</param>
+            /// <param name="MWlistaWag">Parametr lista powinien miec jako argument funkcje "PodajDlugoscCiaguWagi" z klasy "WkladListowy"</param>
+            public double MWsredniaWazona(float[] MWlista, float[] MWlistaWag)
             {
 
-                float[] wynikKazdejWagi = new float[lista.Length];
+                float[] MWwynikKazdejWagi = new float[MWlista.Length];
 
-                for (int x = 0; x < lista.Length; x++)
+                for (int x = 0; x < MWlista.Length; x++)
                 {
-                    wynikKazdejWagi[x] = (lista[x] * listaWag[x]);
+                    MWwynikKazdejWagi[x] = (MWlista[x] * MWlistaWag[x]);
                 }
 
-                double wynik = wynikKazdejWagi.Sum() / listaWag.Sum();
+                double MWwynik = MWwynikKazdejWagi.Sum() / MWlistaWag.Sum();
 
-                return wynik;
+                return MWwynik;
 
             }
 
@@ -517,24 +541,24 @@ namespace Projekt1_Wojciechowski48655
             public void WynikFunkcji()
             {
 
-                double wynik = SredniaWazona(PodajDlugoscCiagu(), PodajDlugoscWagi());
+                double wynik = MWsredniaWazona(MWpodajDlugoscCiagu(), MWpodajDlugoscWagi());
 
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 foreach (var x in "\nWYNIK KONCOWY: ")
                 {
                     Console.Write(x);
-                    Thread.Sleep(PredkoscPokazywaniaTekstu);
+                    Thread.Sleep(MWpredkoscPokazywaniaTekstu);
                 }
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 foreach (var x in wynik.ToString("N3"))
                 {
                     Console.Write(x);
-                    Thread.Sleep(PredkoscPokazywaniaTekstu);
+                    Thread.Sleep(MWpredkoscPokazywaniaTekstu);
                 }
                 Console.ResetColor();
 
-                Console.Write(wyjscieZFunkcji);
+                Console.Write(MWwyjscieZFunkcji);
                 Console.ReadKey();
             }
         }
@@ -542,7 +566,7 @@ namespace Projekt1_Wojciechowski48655
         /// <summary>
         /// Klasa zawierajaca algorytm do obliczania ceny jednostki paszy
         /// </summary>
-        public class FunkcjaE
+        public class MWFunkcjaE
         {
 
         }
@@ -550,53 +574,53 @@ namespace Projekt1_Wojciechowski48655
         /// <summary>
         /// Klasa zawierajaca algorytm do obliczania sredniej harmonicznej (Harmonic Mean)
         /// </summary>
-        public class FunkcjaF : WkladListowy
+        public class MWFunkcjaF : MWWkladListowy
         {
 
             /// <summary>
             /// Funkcja obliczajaca srednia kwadratowa
             /// </summary>
             /// <returns>Wynik algorytmu</returns>
-            /// <param name="lista">Parametr lista powinien miec jako argument funkcje "PodajDlugoscCiagu" z klasy "WkladListowy"</param>
-            public double SredniaHarmoniczna(float[] lista)
+            /// <param name="MWlista">Parametr lista powinien miec jako argument funkcje "PodajDlugoscCiagu" z klasy "WkladListowy"</param>
+            public double MWsredniaHarmoniczna(float[] MWlista)
             {
 
-                double wynik = 0.0d;
-                int i;
+                double MWwynik = 0.0d;
+                int MWiteracyjna;
 
-                for (i = 0; i < lista.Length; i++)
+                for (MWiteracyjna = 0; MWiteracyjna < MWlista.Length; MWiteracyjna++)
                 {
-                    wynik += (1.0f) / lista[i];
+                    MWwynik += (1.0f) / MWlista[MWiteracyjna];
                 }
 
-                wynik = lista.Length * Math.Pow(wynik, -1.0);
-                return wynik;
+                MWwynik = MWlista.Length * Math.Pow(MWwynik, -1.0);
+                return MWwynik;
             }
 
             /// <summary>
             /// Funkcja okazujaca w konsoli wynik algorytmu, przywoluje tez funkcje proszaca o dane wejsciowe
             /// </summary>
-            public void WynikFunkcji()
+            public void MWwynikFunkcji()
             {
 
-                double wynik = SredniaHarmoniczna(PodajDlugoscCiagu());
+                double MWwynik = MWsredniaHarmoniczna(MWpodajDlugoscCiagu());
 
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 foreach (var x in "\nWYNIK KONCOWY: ")
                 {
                     Console.Write(x);
-                    Thread.Sleep(PredkoscPokazywaniaTekstu);
+                    Thread.Sleep(MWpredkoscPokazywaniaTekstu);
                 }
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                foreach (var x in wynik.ToString("N3"))
+                foreach (var x in MWwynik.ToString("N3"))
                 {
                     Console.Write(x);
-                    Thread.Sleep(PredkoscPokazywaniaTekstu);
+                    Thread.Sleep(MWpredkoscPokazywaniaTekstu);
                 }
                 Console.ResetColor();
 
-                Console.Write(wyjscieZFunkcji);
+                Console.Write(MWwyjscieZFunkcji);
                 Console.ReadKey();
 
             }
@@ -605,56 +629,56 @@ namespace Projekt1_Wojciechowski48655
         /// <summary>
         /// Klasa zawierajaca algorytm do obliczania sredniej geometrycznej (Geometric Mean)
         /// </summary>
-        public class FunkcjaG : WkladListowy
+        public class MWFunkcjaG : MWWkladListowy
         {
 
             /// <summary>
             /// Funkcja obliczajaca srednia geometryczna
             /// </summary>
             /// <returns>Wynik algorytmu</returns>
-            /// <param name="lista">Parametr lista powinien miec jako argument funkcje "PodajDlugoscCiagu" z klasy "WkladListowy"</param>
-            public double SredniaGeometryczna(float[] lista)
+            /// <param name="MWlista">Parametr lista powinien miec jako argument funkcje "PodajDlugoscCiagu" z klasy "WkladListowy"</param>
+            public double MWsredniaGeometryczna(float[] MWlista)
             {
 
-                double wynik = 1.0d;
-                int i;
+                double MWwynik = 1.0d;
+                int MWiteracyjna;
 
-                for (i = 0; i < lista.Length; i++)
+                for (MWiteracyjna = 0; MWiteracyjna < MWlista.Length; MWiteracyjna++)
                 {
 
-                    wynik *= lista[i];
+                    MWwynik *= MWlista[MWiteracyjna];
 
                 }
 
-                wynik = Math.Pow(wynik, 1.0 / lista.Length);
+                MWwynik = Math.Pow(MWwynik, 1.0 / MWlista.Length);
 
-                return wynik;
+                return MWwynik;
             }
 
             /// <summary>
             /// Funkcja okazujaca w konsoli wynik algorytmu, przywoluje tez funkcje proszaca o dane wejsciowe
             /// </summary>
-            public void WynikFunkcji()
+            public void MWwynikFunkcji()
             {
 
-                double wynik = SredniaGeometryczna(PodajDlugoscCiagu());
+                double MWwynik = MWsredniaGeometryczna(MWpodajDlugoscCiagu());
 
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 foreach (var x in "\nWYNIK KONCOWY: ")
                 {
                     Console.Write(x);
-                    Thread.Sleep(PredkoscPokazywaniaTekstu);
+                    Thread.Sleep(MWpredkoscPokazywaniaTekstu);
                 }
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                foreach (var x in wynik.ToString("N3"))
+                foreach (var x in MWwynik.ToString("N3"))
                 {
                     Console.Write(x);
-                    Thread.Sleep(PredkoscPokazywaniaTekstu);
+                    Thread.Sleep(MWpredkoscPokazywaniaTekstu);
                 }
                 Console.ResetColor();
 
-                Console.Write(wyjscieZFunkcji);
+                Console.Write(MWwyjscieZFunkcji);
                 Console.ReadKey();
 
             }
@@ -664,53 +688,53 @@ namespace Projekt1_Wojciechowski48655
         /// <summary>
         /// Klasa zawierajaca algorytm do obliczania sredniej kwadratowej (RMS)
         /// </summary>
-        public class FunkcjaH : WkladListowy
+        public class MWFunkcjaH : MWWkladListowy
         {
 
             /// <summary>
             /// Funkcja obliczajaca srednia kwadratowa
             /// </summary>
             /// <returns>Wynik algorytmu</returns>
-            /// <param name="lista">Parametr lista powinien miec jako argument funkcje "PodajDlugoscCiagu" z klasy "WkladListowy"</param>
-            public double SredniaKwadratowa(float[] lista)
+            /// <param name="MWlista">Parametr lista powinien miec jako argument funkcje "PodajDlugoscCiagu" z klasy "WkladListowy"</param>
+            public double MWsredniaKwadratowa(float[] MWlista)
             {
-                double wynik = 0.0d;
-                double sumaLicznika = 0.0d;
-                int i;
-                for (i = 0; i < lista.Length; i++)
+                double MWwynik = 0.0d;
+                double MWsumaLicznika = 0.0d;
+                int MWiteracyjna;
+                for (MWiteracyjna = 0; MWiteracyjna < MWlista.Length; MWiteracyjna++)
                 {
-                    sumaLicznika += (lista[i] * lista[i]);
+                    MWsumaLicznika += (MWlista[MWiteracyjna] * MWlista[MWiteracyjna]);
                 }
 
-                wynik = Math.Sqrt(sumaLicznika / lista.Length);
+                MWwynik = Math.Sqrt(MWsumaLicznika / MWlista.Length);
 
-                return wynik;
+                return MWwynik;
             }
 
             /// <summary>
             /// Funkcja okazujaca w konsoli wynik algorytmu, przywoluje tez funkcje proszaca o dane wejsciowe
             /// </summary>
-            public void WynikFunkcji()
+            public void MWwynikFunkcji()
             {
 
-                double wynik = SredniaKwadratowa(PodajDlugoscCiagu());
+                double MWwynik = MWsredniaKwadratowa(MWpodajDlugoscCiagu());
 
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 foreach (var x in "\nWYNIK KONCOWY: ")
                 {
                     Console.Write(x);
-                    Thread.Sleep(PredkoscPokazywaniaTekstu);
+                    Thread.Sleep(MWpredkoscPokazywaniaTekstu);
                 }
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                foreach (var x in wynik.ToString("N3"))
+                foreach (var x in MWwynik.ToString("N3"))
                 {
                     Console.Write(x);
-                    Thread.Sleep(PredkoscPokazywaniaTekstu);
+                    Thread.Sleep(MWpredkoscPokazywaniaTekstu);
                 }
                 Console.ResetColor();
 
-                Console.Write(wyjscieZFunkcji);
+                Console.Write(MWwyjscieZFunkcji);
                 Console.ReadKey();
 
             }
@@ -719,73 +743,74 @@ namespace Projekt1_Wojciechowski48655
         /// <summary>
         /// Klasa zawierajaca algorytm do obliczania sredniej potegowej (Generalized Mean)
         /// </summary>
-        public class FunkcjaI : WkladListowy
+        public class MWFunkcjaI : MWWkladListowy
         {
 
 			/// <summary>
 			/// Funkcja zwraca rzad K do sredniej potegowej
 			/// </summary>
 			/// <returns></returns>
-			public int rzadSredniejPotegowej() {
-				int rzad;
+			public int MWrzadSredniejPotegowej() {
+
+				int MWrzad;
 
 				foreach (var x in "\tProszę podac rzad do średniej potegowej: ") {
 					Console.Write(x);
-					Thread.Sleep(PredkoscPokazywaniaTekstu);
+					Thread.Sleep(MWpredkoscPokazywaniaTekstu);
 				}
 
-				while (!int.TryParse(Console.ReadLine(), out rzad)) {
+				while (!int.TryParse(Console.ReadLine(), out MWrzad)) {
 					Console.ForegroundColor = ConsoleColor.Red;
 					Console.WriteLine("\nERROR: wystapił niedozwolony znak w zapisaniu wartości");
 					Console.ForegroundColor = ConsoleColor.Yellow;
 					Console.Write("Proszę wpisać ponownie wartość: ");
 					Console.ResetColor();
 				}
-				return rzad;
+				return MWrzad;
 			}
 
 			/// <summary>
 			/// Funkcja obliczajaca srednia kwadratowa
 			/// </summary>
 			/// <returns>Wynik algorytmu</returns>
-			/// <param name="lista">Parametr lista powinien miec jako argument funkcje "PodajDlugoscCiagu" z klasy "WkladListowy"</param>
-			public double SredniaPotegowa(float[] lista) {
+			/// <param name="MWlista">Parametr lista powinien miec jako argument funkcje "PodajDlugoscCiagu" z klasy "WkladListowy"</param>
+			public double MWsredniaPotegowa(float[] MWlista) {
 
-				int rzadK = rzadSredniejPotegowej();
+				int MWrzadK = MWrzadSredniejPotegowej();
 
-				double wynik = 0.0d;
-				double sumaLicznika = 0.0d;
-				int i;
+				double MWwynik = 0.0d;
+				double MWsumaLicznika = 0.0d;
+				int MWiteracyjna;
 
-				for (i = 0; i < lista.Length; i++) {
-					sumaLicznika += Math.Pow(lista[i], rzadK);
+				for (MWiteracyjna = 0; MWiteracyjna < MWlista.Length; MWiteracyjna++) {
+					MWsumaLicznika += Math.Pow(MWlista[MWiteracyjna], MWrzadK);
 				}
 
-				wynik = Math.Pow(sumaLicznika / lista.Length, 1.0 / rzadK);
-				return wynik;
+				MWwynik = Math.Pow(MWsumaLicznika / MWlista.Length, 1.0 / MWrzadK);
+				return MWwynik;
 			}
 
 			/// <summary>
 			/// Funkcja okazujaca w konsoli wynik algorytmu, przywoluje tez funkcje proszaca o dane wejsciowe
 			/// </summary>
-			public void WynikFunkcji() {
+			public void MWwynikFunkcji() {
 
-				double wynik = SredniaPotegowa(PodajDlugoscCiagu());
+				double MWwynik = MWsredniaPotegowa(MWpodajDlugoscCiagu());
 
 				Console.ForegroundColor = ConsoleColor.Cyan;
 				foreach (var x in "\nWYNIK KONCOWY: ") {
 					Console.Write(x);
-					Thread.Sleep(PredkoscPokazywaniaTekstu);
+					Thread.Sleep(MWpredkoscPokazywaniaTekstu);
 				}
 
 				Console.ForegroundColor = ConsoleColor.Yellow;
-				foreach (var x in wynik.ToString("N3")) {
+				foreach (var x in MWwynik.ToString("N3")) {
 					Console.Write(x);
-					Thread.Sleep(PredkoscPokazywaniaTekstu);
+					Thread.Sleep(MWpredkoscPokazywaniaTekstu);
 				}
 				Console.ResetColor();
 
-				Console.Write(wyjscieZFunkcji);
+				Console.Write(MWwyjscieZFunkcji);
 				Console.ReadKey();
 
 			}
@@ -800,112 +825,112 @@ namespace Projekt1_Wojciechowski48655
         {
 
             //deklaracja instancji klas
-            MainGUI mainGUI = new MainGUI();
-            FunkcjaA funkcjaA = new FunkcjaA();
-            FunkcjaB funkcjaB = new FunkcjaB();
-            FunkcjaC funkcjaC = new FunkcjaC();
-            FunkcjaD funkcjaD = new FunkcjaD();
-            FunkcjaF funkcjaF = new FunkcjaF();
-            FunkcjaG funkcjaG = new FunkcjaG();
-            FunkcjaH funkcjaH = new FunkcjaH();
-			FunkcjaI funkcjaI = new FunkcjaI();
+            MWGlownyInterfejs MWmainGUI = new MWGlownyInterfejs();
+            MWFunkcjaA MWfunkcjaA = new MWFunkcjaA();
+            MWFunkcjaB MWfunkcjaB = new MWFunkcjaB();
+            MWFunkcjaC MWfunkcjaC = new MWFunkcjaC();
+            MWFunkcjaD MWfunkcjaD = new MWFunkcjaD();
+            MWFunkcjaF MWfunkcjaF = new MWFunkcjaF();
+            MWFunkcjaG MWfunkcjaG = new MWFunkcjaG();
+            MWFunkcjaH MWfunkcjaH = new MWFunkcjaH();
+			MWFunkcjaI MWfunkcjaI = new MWFunkcjaI();
 
             //glowna petla powtarzajaca program
             do
             {
                 Console.Clear();
 
-                mainGUI.PokazNazweProgramu(tytulProgramu);
-                mainGUI.PokazListeWyborow();
+                MWmainGUI.MWpokazNazweProgramu(MWtytulProgramu);
+                MWmainGUI.MWpokazListeWyborow();
 
-                WybranyKlawisz = Console.ReadKey(true);
+                MWwybranyKlawisz = Console.ReadKey(true);
 
-                switch (WybranyKlawisz.Key)
+                switch (MWwybranyKlawisz.Key)
                 {
                     case ConsoleKey.A:
                         Console.Clear();
-                        mainGUI.PokazNazweProgramu(tytulProgramu);
-                        mainGUI.PokazNazweFunkcji(ListaWyborow[0]);
+                        MWmainGUI.MWpokazNazweProgramu(MWtytulProgramu);
+                        MWmainGUI.MWpokazNazweFunkcji(MWlistaWyborow[0]);
 
-                        funkcjaA.PodajDlugoscCiagu();
-                        funkcjaA.PodajKazdyWyrazCiagu();
-                        funkcjaA.WynikFunkcji();
+                        MWfunkcjaA.MWpodajDlugoscCiagu();
+                        MWfunkcjaA.MWpodajKazdyWyrazCiagu();
+                        MWfunkcjaA.MWwynikFunkcji();
 
                         break;
 
                     case ConsoleKey.B:
                         Console.Clear();
-                        mainGUI.PokazNazweProgramu(tytulProgramu);
-                        mainGUI.PokazNazweFunkcji(ListaWyborow[1]);
+                        MWmainGUI.MWpokazNazweProgramu(MWtytulProgramu);
+                        MWmainGUI.MWpokazNazweFunkcji(MWlistaWyborow[1]);
 
-                        funkcjaB.PodajDlugoscCiagu();
-                        funkcjaB.PodajKazdyWyrazCiagu();
-                        funkcjaB.WynikFunkcji();
+                        MWfunkcjaB.MWpodajDlugoscCiagu();
+                        MWfunkcjaB.MWpodajKazdyWyrazCiagu();
+                        MWfunkcjaB.MWwynikFunkcji();
                         break;
 
                     case ConsoleKey.C:
                         Console.Clear();
-                        mainGUI.PokazNazweProgramu(tytulProgramu);
-                        mainGUI.PokazNazweFunkcji(ListaWyborow[2]);
+                        MWmainGUI.MWpokazNazweProgramu(MWtytulProgramu);
+                        MWmainGUI.MWpokazNazweFunkcji(MWlistaWyborow[2]);
 
-                        funkcjaC.WynikFunkcji();
-                        Console.WriteLine($"Wybrales funkcje: {ListaWyborow[2]}");
+                        MWfunkcjaC.MWwynikFunkcji();
+                        Console.WriteLine($"Wybrales funkcje: {MWlistaWyborow[2]}");
                         break;
 
                     case ConsoleKey.D:
                         Console.Clear();
-                        mainGUI.PokazNazweProgramu(tytulProgramu);
-                        mainGUI.PokazNazweFunkcji(ListaWyborow[3]);
+                        MWmainGUI.MWpokazNazweProgramu(MWtytulProgramu);
+                        MWmainGUI.MWpokazNazweFunkcji(MWlistaWyborow[3]);
 
-                        funkcjaD.WynikFunkcji();
-                        Console.WriteLine($"Wybrales funkcje: {ListaWyborow[3]}");
+                        MWfunkcjaD.WynikFunkcji();
+                        Console.WriteLine($"Wybrales funkcje: {MWlistaWyborow[3]}");
                         break;
 
                     case ConsoleKey.E:
                         Console.Clear();
-                        Console.WriteLine($"Wybrales funkcje: {ListaWyborow[4]}");
+                        Console.WriteLine($"Wybrales funkcje: {MWlistaWyborow[4]}");
                         break;
 
                     case ConsoleKey.F:
                         Console.Clear();
-                        mainGUI.PokazNazweProgramu(tytulProgramu);
-                        mainGUI.PokazNazweFunkcji(ListaWyborow[5]);
+                        MWmainGUI.MWpokazNazweProgramu(MWtytulProgramu);
+                        MWmainGUI.MWpokazNazweFunkcji(MWlistaWyborow[5]);
 
-                        funkcjaF.WynikFunkcji();
+                        MWfunkcjaF.MWwynikFunkcji();
                         break;
 
                     case ConsoleKey.G:
                         Console.Clear();
-                        mainGUI.PokazNazweProgramu(tytulProgramu);
-                        mainGUI.PokazNazweFunkcji(ListaWyborow[6]);
+                        MWmainGUI.MWpokazNazweProgramu(MWtytulProgramu);
+                        MWmainGUI.MWpokazNazweFunkcji(MWlistaWyborow[6]);
 
-                        funkcjaG.WynikFunkcji();
+                        MWfunkcjaG.MWwynikFunkcji();
                         break;
 
                     case ConsoleKey.H:
                         Console.Clear();
-                        mainGUI.PokazNazweProgramu(tytulProgramu);
-                        mainGUI.PokazNazweFunkcji(ListaWyborow[7]);
+                        MWmainGUI.MWpokazNazweProgramu(MWtytulProgramu);
+                        MWmainGUI.MWpokazNazweFunkcji(MWlistaWyborow[7]);
 
-                        funkcjaH.WynikFunkcji();
+                        MWfunkcjaH.MWwynikFunkcji();
                         break;
 
                     case ConsoleKey.I:
                         Console.Clear();
-						mainGUI.PokazNazweProgramu(tytulProgramu);
-						mainGUI.PokazNazweFunkcji(ListaWyborow[8]);
+						MWmainGUI.MWpokazNazweProgramu(MWtytulProgramu);
+						MWmainGUI.MWpokazNazweFunkcji(MWlistaWyborow[8]);
 
-						funkcjaI.WynikFunkcji();
+						MWfunkcjaI.MWwynikFunkcji();
 						break;
 
                     case ConsoleKey.Z:
-                        mainGUI.PokazAutora("Mateusz Wojciechowski", "48655");
+                        MWmainGUI.PokazAutora("Mateusz Wojciechowski", "48655");
                         Thread.Sleep(5000);
                         break;
 
                     default:
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"\n\nERROR: Nie istnieje funkcja pod klawiszem \"{WybranyKlawisz.Key}\"");
+                        Console.WriteLine($"\n\nERROR: Nie istnieje funkcja pod klawiszem \"{MWwybranyKlawisz.Key}\"");
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.Write("Podaj Funkcje jeszcze raz...");
                         Console.ResetColor();
@@ -913,7 +938,7 @@ namespace Projekt1_Wojciechowski48655
                         break;
                 }
 
-            } while (WybranyKlawisz.Key != ConsoleKey.Z);
+            } while (MWwybranyKlawisz.Key != ConsoleKey.Z);
 
             Console.WriteLine();
 
