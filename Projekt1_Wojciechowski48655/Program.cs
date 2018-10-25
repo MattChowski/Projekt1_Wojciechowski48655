@@ -1,10 +1,4 @@
-﻿/*
- * DO ZROBIENIA:
- * 4. Funkcja E
- * 8. Funkcja I
- */
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +17,7 @@ namespace Projekt1_Wojciechowski48655
         /*-------------------------------------------------------------------*/
         /* Deklaracja zmiennych globalnych, mozna pozmieniac wedlug upodoban */
         /*-------------------------------------------------------------------*/
-        static readonly string MWtytulProgramu = "ProjektNr1 - funkcje matematyczne";
+        static readonly string MWtytulProgramu = "ProjektNr1_Wojciechowski48655";
         static readonly string[] MWlistaWyborow = {
                 "A: Obliczenie sumy",
                 "B: Obliczenie Iloczynu",
@@ -137,29 +131,34 @@ namespace Projekt1_Wojciechowski48655
             /// <summary>
 			/// Funkcja wylacza program, pokazujac autora programu i numer albumu studenta
 			/// </summary>
-			/// <param name="MWautorProgramu"></param>
-			/// <param name="MWnumerAlbumu"></param>
+			/// <param name="MWautorProgramu">Nazwa Autora programu</param>
+			/// <param name="MWnumerAlbumu">Numer Albumu studenta</param>
             public void PokazAutora(string MWautorProgramu, string MWnumerAlbumu)
             {
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("");
+                Console.WriteLine("\n");
                 Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (MWautorProgramu.Length / 2)) + "}", MWautorProgramu);
                 Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (MWnumerAlbumu.Length / 2)) + "}", MWnumerAlbumu);
-                Console.WriteLine("");
+                Console.WriteLine("\n");
                 Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
         public class MWWkladListowy
         {
+			//Deklaracja zmiennych klasowych
+			string[] MWciagLiczbString;
+			float[] MWciagLiczbFloat;
 
-            /// <summary>
-            /// Funkcja ktora nam zwraca dlugosc ciagu w formie Array, sprawdza rowniez czy dane sa poprawnie wpisane.
-            /// </summary>
-            /// <returns>CiagLiczbFloat</returns>
-            public float[] MWpodajDlugoscCiagu()
+			string[] MWciagLiczbStringWagi;
+			float[] MWciagLiczbFloatWagi;
+
+			/// <summary>
+			/// Funkcja ktora nam zwraca dlugosc ciagu w formie Array, sprawdza rowniez czy dane sa poprawnie wpisane.
+			/// </summary>
+			/// <returns>CiagLiczbFloat</returns>
+			public float[] MWpodajDlugoscCiagu()
             {
-
                 //Prosba o wpisanei danych wejsciowych w formie listy oddzielona przecinkiem
                 Console.Write("\n\n\tPodaj liczby oddzielając je przecinkiem ");
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -167,8 +166,8 @@ namespace Projekt1_Wojciechowski48655
                 Console.ResetColor();
                 Console.Write(": ");
 
-                string[] MWciagLiczbString = Console.ReadLine().Split(',');
-                float[] MWciagLiczbFloat = new float[MWciagLiczbString.Length];
+                MWciagLiczbString = Console.ReadLine().Split(',');
+                MWciagLiczbFloat = new float[MWciagLiczbString.Length];
                 int MWiteracyjna = 0;
 
                 // operacja przeksztalcania listy STRING w liste FLOAT, razem ze sprawdzaniem czy nie ma bledow w zapisie listy STRING
@@ -191,7 +190,6 @@ namespace Projekt1_Wojciechowski48655
                         {
                             continue;
                         }
-
                     }
                     MWiteracyjna++;
                 }
@@ -204,17 +202,24 @@ namespace Projekt1_Wojciechowski48655
             /// <returns>CiagLiczbFloat</returns>
             public float[] MWpodajDlugoscWagi()
             {
-
                 //Prosba o wpisanei danych wejsciowych w formie listy oddzielona przecinkiem
-                Console.Write("\n\tPodaj wagi oddzielając je przecinkiem ");
+                Console.Write("\tPodaj wagi oddzielając je przecinkiem ");
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.Write("(i.e.: 1, 2, 3)");
                 Console.ResetColor();
                 Console.Write(": ");
 
-                string[] MWciagLiczbStringWagi = Console.ReadLine().Split(',');
-                float[] MWciagLiczbFloatWagi = new float[MWciagLiczbStringWagi.Length];
+				MWciagLiczbStringWagi = Console.ReadLine().Split(',');
+				while (MWciagLiczbStringWagi.Length != MWciagLiczbString.Length) {
+					Console.ForegroundColor = ConsoleColor.Red;
+					Console.WriteLine($"\nERROR: Pamietaj! Ciag wag musi miec tyle samo elementow co ciag liczbowy");
+					Console.ForegroundColor = ConsoleColor.Yellow;
+					Console.Write($"Podaj ponownie ponownie ciag wag: ");
+					Console.ResetColor();
+					MWciagLiczbStringWagi = Console.ReadLine().Split(',');
+				}
 
+				MWciagLiczbFloatWagi = new float[MWciagLiczbStringWagi.Length];
                 int MWiteracyjna = 0;
 
                 foreach (string s in MWciagLiczbStringWagi)
@@ -236,13 +241,20 @@ namespace Projekt1_Wojciechowski48655
                         {
                             continue;
                         }
-
                     }
+
+					while (MWciagLiczbFloatWagi[MWiteracyjna] < 0)
+					{
+						Console.ForegroundColor = ConsoleColor.Red;
+						Console.WriteLine($"\nERROR: Waga nie moze byc nizsza od 0");
+						Console.ForegroundColor = ConsoleColor.Yellow;
+						Console.Write($"Podaj ponownie {MWiteracyjna + 1} cyfre ciagu: ");
+						Console.ResetColor();
+						MWciagLiczbFloatWagi[MWiteracyjna] = float.Parse(Console.ReadLine());
+					}
                     MWiteracyjna++;
                 }
-
                 return MWciagLiczbFloatWagi;
-
             }
         }
 
@@ -924,7 +936,7 @@ namespace Projekt1_Wojciechowski48655
 						break;
 
                     case ConsoleKey.Z:
-                        MWmainGUI.PokazAutora("Mateusz Wojciechowski", "48655");
+                        MWmainGUI.PokazAutora("Mateusz Wojciechowski", "Numer Albumu: 48655");
                         Thread.Sleep(5000);
                         break;
 
