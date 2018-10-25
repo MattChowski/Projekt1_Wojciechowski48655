@@ -11,5 +11,5 @@
 * [x] F: Obliczenie sredniej harmonicznej
 * [x] G: Obliczenie sredniej geometrycznej
 * [x] H: Obliczenie sredniej kwadratowej
-* [ ] I: Obliczenie sredniej potegowej
+* [x] I: Obliczenie sredniej potegowej
 * [x] Z: Zakonczenie programu (wyjscie)
