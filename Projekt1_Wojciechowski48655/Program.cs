@@ -7,13 +7,11 @@ using System.Threading;
 
 namespace Projekt1_Wojciechowski48655
 {
-
     /*----------------*/
     /* glowny program */
     /*----------------*/
     class Program
     {
-
         /*-------------------------------------------------------------------*/
         /* Deklaracja zmiennych globalnych, mozna pozmieniac wedlug upodoban */
         /*-------------------------------------------------------------------*/
@@ -34,13 +32,13 @@ namespace Projekt1_Wojciechowski48655
         const int MWpredkoscPokazywaniaTekstu = 5;
         static ConsoleKeyInfo MWwybranyKlawisz;
 
-        /*--------------------------------------------*/
-        /* konstruktor klasy, ustawia rozmiar konsoli */
-        /*--------------------------------------------*/
+        /// <summary>
+		/// Konstruktor klasy, ustawia rozmiar konsoli
+		/// </summary>
         Program()
         {
             Console.SetWindowSize(100, 30);
-            Console.SetWindowPosition(0, 0);
+            Console.SetWindowPosition(0, 00);
         }
 
         /*------------------------------------------------*/
@@ -267,7 +265,6 @@ namespace Projekt1_Wojciechowski48655
         /// </summary>
         public class MWFunkcjaA
         {
-
             //deklaracja zmiennych klasowych
             private int MWiloscCiagu;
             private float MWsuma;
@@ -302,7 +299,6 @@ namespace Projekt1_Wojciechowski48655
                     }
 
                 } while (MWiloscCiagu <= 1);
-
                 Console.WriteLine();
             }
 
@@ -311,7 +307,6 @@ namespace Projekt1_Wojciechowski48655
 			/// </summary>
 			public void MWpodajKazdyWyrazCiagu()
             {
-
                 //resetowanie zmiennych w razie powtorzenia funkcji
                 MWsuma = 0.0f;
 
@@ -328,11 +323,9 @@ namespace Projekt1_Wojciechowski48655
                         Console.Write("Sproboj ponownie: ");
                         Console.ResetColor();
                     }
-
                     //algorytm obliczania sumy
                     MWsuma += MWwartoscWyrazuCiagu;
                 }
-
                 Console.WriteLine();
             }
 
@@ -341,7 +334,6 @@ namespace Projekt1_Wojciechowski48655
 			/// </summary>
 			public void MWwynikFunkcji()
             {
-
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 foreach (var x in "WYNIK KONCOWY: ")
                 {
@@ -359,9 +351,7 @@ namespace Projekt1_Wojciechowski48655
 
                 Console.Write(MWwyjscieZFunkcji);
                 Console.ReadKey();
-
             }
-
         }
 
         /// <summary>
@@ -369,7 +359,6 @@ namespace Projekt1_Wojciechowski48655
         /// </summary>
         public class MWFunkcjaB
         {
-
             //deklaracja zmiennych klasowych
             private int MWiloscCiagu;
             private float MWsuma;
@@ -404,7 +393,6 @@ namespace Projekt1_Wojciechowski48655
                     }
 
                 } while (MWiloscCiagu <= 1);
-
                 Console.WriteLine();
             }
 
@@ -413,7 +401,6 @@ namespace Projekt1_Wojciechowski48655
 			/// </summary>
 			public void MWpodajKazdyWyrazCiagu()
             {
-
                 //resetowanie zmiennych w razie powtorzenia funkcji
                 MWsuma = 1.0f;
 
@@ -430,11 +417,9 @@ namespace Projekt1_Wojciechowski48655
                         Console.Write("Sproboj ponownie: ");
                         Console.ResetColor();
                     }
-
                     //algorytm obliczania sumy
                     MWsuma *= MWwartoscWyrazuCiagu;
                 }
-
                 Console.WriteLine();
             }
 
@@ -443,7 +428,6 @@ namespace Projekt1_Wojciechowski48655
 			/// </summary>
 			public void MWwynikFunkcji()
             {
-
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 foreach (var x in "WYNIK KONCOWY: ")
                 {
@@ -461,7 +445,6 @@ namespace Projekt1_Wojciechowski48655
 
                 Console.Write(MWwyjscieZFunkcji);
                 Console.ReadKey();
-
             }
         }
 
@@ -470,7 +453,6 @@ namespace Projekt1_Wojciechowski48655
         /// </summary>
         public class MWFunkcjaC : MWWkladListowy
         {
-
             /// <summary>
             /// Funkcja obliczajaca srednia arytmetyczna
             /// </summary>
@@ -478,7 +460,6 @@ namespace Projekt1_Wojciechowski48655
             /// <param name="MWlista">Parametr lista powinien miec jako argument funkcje "PodajDlugoscCiagu" z klasy "WkladListowy"</param>
             public double MWsredniaArytmetyczna(float[] MWlista)
             {
-
                 float MWsumaCiagu = 0.0f;
 
                 foreach (int x in MWlista)
@@ -487,7 +468,6 @@ namespace Projekt1_Wojciechowski48655
                 }
 
                 double MWwynik = MWsumaCiagu / MWlista.Length;
-
                 return MWwynik;
             }
 
@@ -524,7 +504,6 @@ namespace Projekt1_Wojciechowski48655
         /// </summary>
         public class MWFunkcjaD : MWWkladListowy
         {
-
             /// <summary>
             /// Funkcja obliczajaca srednia wazona
             /// </summary>
@@ -533,7 +512,6 @@ namespace Projekt1_Wojciechowski48655
             /// <param name="MWlistaWag">Parametr lista powinien miec jako argument funkcje "PodajDlugoscCiaguWagi" z klasy "WkladListowy"</param>
             public double MWsredniaWazona(float[] MWlista, float[] MWlistaWag)
             {
-
                 float[] MWwynikKazdejWagi = new float[MWlista.Length];
 
                 for (int x = 0; x < MWlista.Length; x++)
@@ -542,9 +520,7 @@ namespace Projekt1_Wojciechowski48655
                 }
 
                 double MWwynik = MWwynikKazdejWagi.Sum() / MWlistaWag.Sum();
-
                 return MWwynik;
-
             }
 
             /// <summary>
@@ -588,7 +564,6 @@ namespace Projekt1_Wojciechowski48655
         /// </summary>
         public class MWFunkcjaF : MWWkladListowy
         {
-
             /// <summary>
             /// Funkcja obliczajaca srednia kwadratowa
             /// </summary>
@@ -643,7 +618,6 @@ namespace Projekt1_Wojciechowski48655
         /// </summary>
         public class MWFunkcjaG : MWWkladListowy
         {
-
             /// <summary>
             /// Funkcja obliczajaca srednia geometryczna
             /// </summary>
@@ -702,7 +676,6 @@ namespace Projekt1_Wojciechowski48655
         /// </summary>
         public class MWFunkcjaH : MWWkladListowy
         {
-
             /// <summary>
             /// Funkcja obliczajaca srednia kwadratowa
             /// </summary>
@@ -757,7 +730,6 @@ namespace Projekt1_Wojciechowski48655
         /// </summary>
         public class MWFunkcjaI : MWWkladListowy
         {
-
 			/// <summary>
 			/// Funkcja zwraca rzad K do sredniej potegowej
 			/// </summary>
@@ -826,13 +798,11 @@ namespace Projekt1_Wojciechowski48655
 				Console.ReadKey();
 
 			}
-
 		}
 
         /*---------------------------------*/
         /* Metoda main, startujaca program */
         /*---------------------------------*/
-
         static void Main(string[] args)
         {
 
